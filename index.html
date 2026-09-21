@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABT İstanbul</title>
+    <title>ABT İstanbul | Video & Prodüksiyon</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,49 +14,101 @@
             background-color: #0f1115;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 40px 20px;
         }
         header {
             text-align: center;
             margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #1f2430;
         }
         header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
             color: #ffffff;
         }
         header p {
-            color: #9ab;
-            font-size: 1rem;
+            color: #8a99ad;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        
+        /* Video Izgarası */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
+            margin-bottom: 60px;
         }
         .video-card {
-            background: #1a1d24;
+            background: #181b22;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
-        .iframe-container {
+        
+        /* Thumbnail ve Oynat Alanı */
+        .thumb-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
+            background-color: #000;
+            cursor: pointer;
             overflow: hidden;
         }
-        .iframe-container iframe {
+        .thumb-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .video-card:hover .thumb-container img {
+            transform: scale(1.05);
+        }
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+            z-index: 2;
+        }
+        .play-btn::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 4px;
+        }
+        .video-card:hover .play-btn {
+            background: #00adef; /* Vimeo Mavis */
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .thumb-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -65,25 +117,74 @@
             border: 0;
         }
         .video-info {
-            padding: 15px;
+            padding: 18px;
         }
         .video-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: #fff;
+            color: #e2e8f0;
             line-height: 1.4;
         }
+
+        /* İletişim ve Harita Alanı */
+        .contact-section {
+            background: #181b22;
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .contact-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.05rem;
+            color: #9ab;
+        }
+        .contact-info div strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .contact-info a {
+            color: #00adef;
+            text-decoration: none;
+        }
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 50px;
             padding-top: 20px;
-            border-top: 1px solid #232731;
-            color: #678;
+            color: #566;
             font-size: 0.9rem;
-        }
-        footer a {
-            color: #4af;
-            text-decoration: none;
         }
         .loading {
             text-align: center;
@@ -98,20 +199,51 @@
     <div class="container">
         <header>
             <h1>ABT İSTANBUL</h1>
-            <p>Video & Prodüksiyon Portföyü</p>
+            <p>Video & Prodüksiyon</p>
         </header>
 
+        <!-- Video Izgarası -->
         <div id="video-grid" class="video-grid">
             <div class="loading">Videolar yükleniyor...</div>
         </div>
 
+        <!-- İletişim & Harita -->
+        <div class="contact-section">
+            <h2>İLETİŞİM & KONUM</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div>
+                        <strong>Adres:</strong>
+                        abt|istanbul<br>
+                        İstanbul, Türkiye
+                    </div>
+                    <div>
+                        <strong>Telefon:</strong>
+                        <a href="tel:+902122829024">+90 212 282 90 24</a><br>
+                        <a href="tel:+905325127293">+90 532 512 72 93</a>
+                    </div>
+                    <div>
+                        <strong>E-Posta:</strong>
+                        <a href="mailto:it@abtistanbul.com">it@abtistanbul.com</a>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <!-- İstanbul Genel / Etiler Arama Modeli Google Map Embed -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48123.63581729221!2d29.0000000!3d41.0800000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab63f62086e75%3A0x82a510522108740c!2zQmVc3RraXRhxZ8vxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1700000000000" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            <p>&copy; ABT İstanbul | İletişim: <a href="mailto:it@abtistanbul.com">it@abtistanbul.com</a> | +90 212 282 90 24</p>
+            <p>&copy; 2026 ABT İstanbul. Tüm hakları saklıdır.</p>
         </footer>
     </div>
 
     <script>
-        // Vimeo Kamu Kanalı RSS/JSON Verisi
         const vimeoUser = 'abtistanbul';
         const apiUrl = `https://vimeo.com/api/v2/${vimeoUser}/videos.json`;
 
@@ -121,7 +253,7 @@
                 const response = await fetch(apiUrl);
                 const videos = await response.json();
 
-                grid.innerHTML = ''; // Loading yazısını temizle
+                grid.innerHTML = '';
 
                 if(videos.length === 0) {
                     grid.innerHTML = '<div class="loading">Henüz video bulunamadı.</div>';
@@ -132,9 +264,13 @@
                     const card = document.createElement('div');
                     card.className = 'video-card';
 
+                    // Thumbnail görseli (Büyük boy)
+                    const thumbUrl = video.thumbnail_large;
+
                     card.innerHTML = `
-                        <div class="iframe-container">
-                            <iframe src="https://player.vimeo.com/video/${video.id}" allow="autoplay; fullscreen; picture-in-out" allowfullscreen></iframe>
+                        <div class="thumb-container" onclick="loadIframe(this, '${video.id}')">
+                            <img src="${thumbUrl}" alt="${video.title}">
+                            <div class="play-btn"></div>
                         </div>
                         <div class="video-info">
                             <div class="video-title">${video.title}</div>
@@ -144,8 +280,19 @@
                 });
             } catch (error) {
                 console.error('Hata:', error);
-                grid.innerHTML = '<div class="loading">Videolar yüklenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.</div>';
+                grid.innerHTML = '<div class="loading">Videolar yüklenirken bir sorun oluştu.</div>';
             }
+        }
+
+        // Tıklanınca Iframe'i yükleyen fonksiyon (Performans için)
+        function loadIframe(element, videoId) {
+            element.innerHTML = `
+                <iframe 
+                    src="https://player.vimeo.com/video/${videoId}?autoplay=1" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
         }
 
         fetchVimeoVideos();
