@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABT İstanbul | Video & Prodüksiyon</title>
+    <title>ABT İstanbul | Video & Post Prodüksiyon</title>
     <style>
         * {
             box-sizing: border-box;
@@ -105,7 +105,7 @@
             margin-left: 4px;
         }
         .video-card:hover .play-btn {
-            background: #00adef; /* Vimeo Mavis */
+            background: #00adef;
             transform: translate(-50%, -50%) scale(1.1);
         }
         .thumb-container iframe {
@@ -199,7 +199,7 @@
     <div class="container">
         <header>
             <h1>ABT İSTANBUL</h1>
-            <p>Video & Prodüksiyon</p>
+            <p>Video & Post Prodüksiyon</p>
         </header>
 
         <!-- Video Izgarası -->
@@ -215,7 +215,7 @@
                     <div>
                         <strong>Adres:</strong>
                         abt|istanbul<br>
-                        İstanbul, Türkiye
+                        Levent / Beşiktaş, İstanbul
                     </div>
                     <div>
                         <strong>Telefon:</strong>
@@ -228,9 +228,8 @@
                     </div>
                 </div>
                 <div class="map-container">
-                    <!-- İstanbul Genel / Etiler Arama Modeli Google Map Embed -->
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48123.63581729221!2d29.0000000!3d41.0800000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab63f62086e75%3A0x82a510522108740c!2zQmVc3RraXRhxZ8vxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1700000000000" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12030.58430752109!2d29.0068341!3d41.0768007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab65d40391f69%3A0xb3551532f8319f3f!2zTGV2ZW50LCBCZcWfaWt0YcWfL8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1700000000000" 
                         allowfullscreen="" 
                         loading="lazy">
                     </iframe>
@@ -264,7 +263,6 @@
                     const card = document.createElement('div');
                     card.className = 'video-card';
 
-                    // Thumbnail görseli (Büyük boy)
                     const thumbUrl = video.thumbnail_large;
 
                     card.innerHTML = `
@@ -284,7 +282,6 @@
             }
         }
 
-        // Tıklanınca Iframe'i yükleyen fonksiyon (Performans için)
         function loadIframe(element, videoId) {
             element.innerHTML = `
                 <iframe 
