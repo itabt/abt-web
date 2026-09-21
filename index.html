@@ -1,12 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABT İstanbul</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #0f1115;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        header p {
+            color: #9ab;
+            font-size: 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .video-card {
+            background: #1a1d24;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .iframe-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-info {
+            padding: 15px;
+        }
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.4;
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #232731;
+            color: #678;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #4af;
+            text-decoration: none;
+        }
+        .loading {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            color: #888;
+        }
+    </style>
 </head>
-<body style="text-align:center; padding-top:100px; font-family:sans-serif;">
-    <h1>ABT İstanbul</h1>
-    <p>Web sitemiz yenilenmektedir. Çok yakında hizmetinizdeyiz.</p>
-    <p>İletişim: it@abtistanbul.com | +90 212 282 90 24</p>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>ABT İSTANBUL</h1>
+            <p>Video & Prodüksiyon Portföyü</p>
+        </header>
+
+        <div id="video-grid" class="video-grid">
+            <div class="loading">Videolar yükleniyor...</div>
+        </div>
+
+        <footer>
+            <p>&copy; ABT İstanbul | İletişim: <a href="mailto:it@abtistanbul.com">it@abtistanbul.com</a> | +90 212 282 90 24</p>
+        </footer>
+    </div>
+
+    <script>
+        // Vimeo Kamu Kanalı RSS/JSON Verisi
+        const vimeoUser = 'abtistanbul';
+        const apiUrl = `https://vimeo.com/api/v2/${vimeoUser}/videos.json`;
+
+        async function fetchVimeoVideos() {
+            const grid = document.getElementById('video-grid');
+            try {
+                const response = await fetch(apiUrl);
+                const videos = await response.json();
+
+                grid.innerHTML = ''; // Loading yazısını temizle
+
+                if(videos.length === 0) {
+                    grid.innerHTML = '<div class="loading">Henüz video bulunamadı.</div>';
+                    return;
+                }
+
+                videos.forEach(video => {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+
+                    card.innerHTML = `
+                        <div class="iframe-container">
+                            <iframe src="https://player.vimeo.com/video/${video.id}" allow="autoplay; fullscreen; picture-in-out" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}</div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Hata:', error);
+                grid.innerHTML = '<div class="loading">Videolar yüklenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.</div>';
+            }
+        }
+
+        fetchVimeoVideos();
+    </script>
 </body>
 </html>
