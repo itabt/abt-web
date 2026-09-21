@@ -45,7 +45,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
         .video-card {
             background: #181b22;
@@ -125,6 +125,40 @@
             font-weight: 600;
             color: #e2e8f0;
             line-height: 1.4;
+        }
+
+        /* Sayfalama (Pagination) & Butonlar */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background-color: #181b22;
+            color: #ffffff;
+            border: 1px solid #2d3342;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn:hover:not(:disabled) {
+            background-color: #00adef;
+            border-color: #00adef;
+            color: #ffffff;
+        }
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .page-info {
+            color: #8a99ad;
+            font-size: 0.95rem;
         }
 
         /* İletişim ve Harita Alanı */
@@ -209,6 +243,14 @@
             <div class="loading">Videolar yükleniyor...</div>
         </div>
 
+        <!-- Sayfalama Kontrolleri -->
+        <div class="pagination-container" id="pagination-controls" style="display: none;">
+            <button class="btn" id="prev-btn" onclick="changePage(-1)">Önceki</button>
+            <span class="page-info" id="page-info">Sayfa 1</span>
+            <button class="btn" id="next-btn" onclick="changePage(1)">Sonraki</button>
+            <button class="btn" id="show-all-btn" onclick="showAllVideos()">Tümünü Göster</button>
+        </div>
+
         <!-- İletişim & Harita -->
         <div class="contact-section">
             <h2>İLETİŞİM & KONUM</h2>
@@ -249,40 +291,100 @@
         const vimeoUser = 'abtistanbul';
         const apiUrl = `https://vimeo.com/api/v2/${vimeoUser}/videos.json`;
 
+        let allVideos = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+        let isShowingAll = false;
+
         async function fetchVimeoVideos() {
             const grid = document.getElementById('video-grid');
             try {
                 const response = await fetch(apiUrl);
-                const videos = await response.json();
+                let videos = await response.json();
 
-                grid.innerHTML = '';
-
-                if(videos.length === 0) {
+                if (!Array.isArray(videos) || videos.length === 0) {
                     grid.innerHTML = '<div class="loading">Henüz video bulunamadı.</div>';
                     return;
                 }
 
-                videos.forEach(video => {
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
+                // Videoları yayınlanma tarihine göre en yeniden en eskiye sırala
+                videos.sort((a, b) => new Date(b.upload_date) - new Date(a.upload_date));
+                allVideos = videos;
 
-                    const thumbUrl = video.thumbnail_large;
-
-                    card.innerHTML = `
-                        <div class="thumb-container" onclick="loadIframe(this, '${video.id}')">
-                            <img src="${thumbUrl}" alt="${video.title}">
-                            <div class="play-btn"></div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">${video.title}</div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
+                document.getElementById('pagination-controls').style.display = 'flex';
+                renderPage();
             } catch (error) {
                 console.error('Hata:', error);
                 grid.innerHTML = '<div class="loading">Videolar yüklenirken bir sorun oluştu.</div>';
             }
+        }
+
+        function renderPage() {
+            const grid = document.getElementById('video-grid');
+            grid.innerHTML = '';
+
+            let videosToDisplay = [];
+            
+            if (isShowingAll) {
+                videosToDisplay = allVideos;
+            } else {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                videosToDisplay = allVideos.slice(startIndex, endIndex);
+            }
+
+            videosToDisplay.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                const thumbUrl = video.thumbnail_large;
+
+                card.innerHTML = `
+                    <div class="thumb-container" onclick="loadIframe(this, '${video.id}')">
+                        <img src="${thumbUrl}" alt="${video.title}">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            updatePaginationUI();
+        }
+
+        function updatePaginationUI() {
+            const totalPages = Math.ceil(allVideos.length / itemsPerPage);
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const pageInfo = document.getElementById('page-info');
+            const showAllBtn = document.getElementById('show-all-btn');
+
+            if (isShowingAll) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                pageInfo.innerText = `Toplam ${allVideos.length} Video Gösteriliyor`;
+                showAllBtn.innerText = 'Sayfalı Göster';
+            } else {
+                prevBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'inline-block';
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage >= totalPages;
+                pageInfo.innerText = `Sayfa ${currentPage} / ${totalPages}`;
+                showAllBtn.innerText = 'Tümünü Göster';
+            }
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showAllVideos() {
+            isShowingAll = !isShowingAll;
+            currentPage = 1;
+            renderPage();
         }
 
         function loadIframe(element, videoId) {
