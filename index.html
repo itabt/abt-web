@@ -24,14 +24,7 @@
             }
           },
           animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'glow': 'glow 2s ease-in-out infinite alternate',
-          },
-          keyframes: {
-            glow: {
-              '0%': { boxShadow: '0 0 5px rgba(255, 0, 51, 0.4), 0 0 10px rgba(255, 0, 51, 0.2)' },
-              '100%': { boxShadow: '0 0 15px rgba(255, 0, 51, 0.8), 0 0 25px rgba(255, 0, 51, 0.5)' }
-            }
+            'pulse-slow': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           }
         }
       }
@@ -52,9 +45,19 @@
       background-color: #0A0A0C;
       color: #E2E8F0;
       overflow-x: hidden;
+      position: relative;
     }
     h1, h2, h3, h4, .font-heading {
       font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Noktalı Kamera Çerçevesi (HUD Camera Viewfinder) */
+    .camera-dotted-frame {
+      position: fixed;
+      inset: 12px;
+      border: 1px dotted rgba(255, 255, 255, 0.55);
+      pointer-events: none;
+      z-index: 40;
     }
 
     /* Multi-color gradient typography */
@@ -65,7 +68,7 @@
       display: inline-block;
     }
 
-    /* Waveform Animation */
+    /* Waveform Bar Animasyonu */
     .waveform-bar {
       animation: wave 1.2s ease-in-out infinite alternate;
     }
@@ -84,9 +87,6 @@
     ::-webkit-scrollbar-thumb {
       background: #2A2A35;
       border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #3A3A4A;
     }
 
     /* SMPTE Color Bar Strip */
@@ -108,47 +108,59 @@
 </head>
 <body class="bg-[#0A0A0C] text-slate-200 transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
+  <!-- NOKTALI KAMERA EKRANI ÇERÇEVESİ (CAMERA VIEWFINDER OVERLAY) -->
+  <div class="camera-dotted-frame">
+    <!-- Köşe Nişangahları (Corners) -->
+    <div class="absolute -top-1 -left-1 w-5 h-5 border-t-2 border-l-2 border-brand-cyan"></div>
+    <div class="absolute -top-1 -right-1 w-5 h-5 border-t-2 border-r-2 border-brand-cyan"></div>
+    <div class="absolute -bottom-1 -left-1 w-5 h-5 border-b-2 border-l-2 border-brand-cyan"></div>
+    <div class="absolute -bottom-1 -right-1 w-5 h-5 border-b-2 border-r-2 border-brand-cyan"></div>
+  </div>
+
   <!-- TOP HEADER / HUD NAVIGATION -->
   <header class="border-b border-slate-800/80 bg-[#0A0A0C]/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between relative">
       
-      <!-- LOGO AREA (LARGE & PROMINENT) -->
-      <div class="flex items-center space-x-6">
-        <div class="logo-wrapper py-2 px-4 rounded-xl border border-slate-800/60 bg-slate-900/40 hover:border-slate-700 transition-all flex items-center justify-center min-h-[80px]">
+      <!-- SOL TARAF: BÜYÜTÜLMÜŞ REC GÖSTERGESİ -->
+      <div class="flex items-center">
+        <div class="flex items-center space-x-2 bg-red-950/40 border border-red-800/60 text-red-400 px-4 py-2 rounded-full text-sm font-mono tracking-wider font-bold animate-pulse-slow">
+          <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
+          <span class="text-base tracking-widest text-red-500">● REC</span>
+        </div>
+      </div>
+
+      <!-- ORTA: LOGO (TAM MERKEZDE) -->
+      <div class="absolute left-1/2 transform -translate-x-1/2">
+        <div class="logo-wrapper py-2 px-6 rounded-xl border border-slate-800/60 bg-slate-900/40 hover:border-slate-700 transition-all flex items-center justify-center min-h-[80px]">
           <a href="#" class="block focus:outline-none">
             <img 
               src="abt_logo_siyahta.jpg" 
               alt="ABT Istanbul" 
-              class="site-logo-img max-w-[320px] max-h-[90px] w-auto h-auto object-contain"
+              class="site-logo-img max-w-[320px] max-h-[85px] w-auto h-auto object-contain"
               onerror="this.onerror=null; this.classList.add('hidden'); document.getElementById('logo-fallback').classList.remove('hidden');"
             />
-            <div id="logo-fallback" class="hidden text-left">
+            <div id="logo-fallback" class="hidden text-center">
               <span class="text-3xl font-bold tracking-tighter text-white font-heading block uppercase">abt</span>
               <span class="text-xs font-semibold tracking-[0.35em] text-brand-cyan block uppercase -mt-1">istanbul</span>
             </div>
           </a>
         </div>
-
-        <!-- BÜYÜTÜLMÜŞ REC GÖSTERGESİ -->
-        <div class="hidden sm:flex items-center space-x-2 bg-red-950/40 border border-red-800/60 text-red-400 px-4 py-2 rounded-full text-sm font-mono tracking-wider font-bold animate-pulse-slow">
-          <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block shadow-[0_0_10px_#ff0033] animate-ping"></span>
-          <span class="text-base tracking-widest text-red-500">● REC</span>
-        </div>
       </div>
 
-      <!-- RIGHT CONTROLS (TR/EN & LIGHT/DARK TOGGLE) -->
-      <div class="flex items-center space-x-4">
+      <!-- SAĞ TARAF: DİL & TEMA KONTROLLERİ -->
+      <div class="flex items-center space-x-3">
         <!-- TR / EN SWITCHER -->
         <button id="langToggle" onclick="toggleLanguage()" class="flex items-center space-x-2 bg-slate-900 border border-slate-700/80 hover:border-brand-cyan text-slate-300 px-3.5 py-2 rounded-lg text-xs font-mono transition-all">
           <i class="fa-solid fa-globe text-brand-cyan"></i>
           <span id="langLabel" class="font-bold">TR</span>
         </button>
 
-        <!-- THEME TOGGLE -->
+        <!-- TEMA DEĞİŞTİRİCİ -->
         <button id="themeToggle" onclick="toggleTheme()" class="bg-slate-900 border border-slate-700/80 hover:border-amber-400 text-slate-300 p-2.5 rounded-lg text-xs font-mono transition-all">
           <i class="fa-solid fa-sun text-amber-400 text-sm" id="themeIcon"></i>
         </button>
       </div>
+
     </div>
   </header>
 
@@ -156,13 +168,12 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-16">
 
     <!-- HERO / TITLE SECTION -->
-    <section class="text-center space-y-6 pt-4">
+    <section class="text-center space-y-6 pt-2">
       <div class="inline-flex items-center space-x-3 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-mono text-slate-400">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span data-tr="POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU" data-en="POST-PRODUCTION & COLOR GRADING SUITE">POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU</span>
       </div>
 
-      <!-- RENKLİ YAZI VE ALTTAN TİTLE -->
       <div class="space-y-3">
         <h2 class="text-xl sm:text-2xl font-medium tracking-wide text-slate-400 uppercase font-heading" data-tr="Görsel Deneyimler & Yaratıcı Prodüksiyon" data-en="Visual Experiences & Creative Production">
           Görsel Deneyimler & Yaratıcı Prodüksiyon
@@ -174,7 +185,7 @@
         </h1>
       </div>
 
-      <!-- SMPTE COLOR BAR PANEL & HUD BAR -->
+      <!-- SMPTE COLOR BAR PANEL & HUD METRICS -->
       <div class="max-w-xl mx-auto space-y-2 pt-2">
         <div class="smpte-bar opacity-85 shadow-lg">
           <div class="smpte-c1" title="C0 Silver"></div>
@@ -186,243 +197,240 @@
           <div class="smpte-c7" title="C6 Blue"></div>
         </div>
         <div class="flex justify-between items-center text-[10px] font-mono text-slate-500 uppercase tracking-widest px-1">
-          <span>SMPTE EG 1-1990 MASTER</span>
+          <span>SMPTE EG 1-1990</span>
           <span>DCI-P3 / REC.2020 / SDR-HDR</span>
-          <span>ST 2084 PQ</span>
+          <span>4K DCI @ 24 FPS</span>
         </div>
       </div>
     </section>
 
-    <!-- SELECTED WORKS SECTION -->
+    <!-- SELECTED WORKS (VIMEO PORTFOLIO & CATEGORY FILTERING) -->
     <section class="space-y-8">
-      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between border-b border-slate-800 pb-4 gap-4">
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
-          <!-- REMOVED '& REEL', KEPT MULTICOLOR GRADIENT TITLE -->
           <h2 class="text-3xl font-extrabold font-heading tracking-tight">
             <span class="multicolor-gradient-text">SELECTED WORKS</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1" data-tr="Son projelerimizden öne çıkan filmler, diziler ve reklam çalışmaları." data-en="Featured films, series, and commercials from our recent post-production lineup.">
-            Son projelerimizden öne çıkan filmler, diziler ve reklam çalışmaları.
+          <p class="text-slate-400 text-sm mt-1" data-tr="Vimeo portfolyomuzdan öne çıkan sinema, dizi, reklam ve renk düzenleme projeleri." data-en="Featured films, series, commercials and color grading projects from our Vimeo portfolio.">
+            Vimeo portfolyomuzdan öne çıkan sinema, dizi, reklam ve renk düzenleme projeleri.
           </p>
         </div>
-        <div class="flex items-center space-x-2 text-xs font-mono text-slate-500">
-          <i class="fa-solid fa-film text-brand-cyan"></i>
-          <span data-tr="TOPLAM PROJE: 8" data-en="TOTAL PROJECTS: 8">TOPLAM PROJE: 8</span>
+
+        <!-- CATEGORY FILTERS -->
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <button onclick="filterWorks('all')" class="filter-btn active bg-brand-cyan/20 border border-brand-cyan text-brand-cyan px-3 py-1.5 rounded-lg" data-filter="all" data-tr="HEPSİ" data-en="ALL">HEPSİ</button>
+          <button onclick="filterWorks('cinema')" class="filter-btn bg-slate-900 border border-slate-800 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg" data-filter="cinema" data-tr="SİNEMA / DİZİ" data-en="CINEMA / SERIES">SİNEMA / DİZİ</button>
+          <button onclick="filterWorks('commercial')" class="filter-btn bg-slate-900 border border-slate-800 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg" data-filter="commercial" data-tr="REKLAM" data-en="COMMERCIAL">REKLAM</button>
+          <button onclick="filterWorks('audio')" class="filter-btn bg-slate-900 border border-slate-800 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg" data-filter="audio" data-tr="SES / DOLBY ATMOS" data-en="SOUND / ATMOS">SES / DOLBY ATMOS</button>
         </div>
       </div>
 
       <!-- VIDEO GALLERY GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         <!-- Video Card 1 -->
-        <div class="group bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 flex flex-col">
-          <div class="relative aspect-video bg-black overflow-hidden">
-            <iframe src="https://player.vimeo.com/video/76979871?h=8272103f6e&title=0&byline=0&portrait=0" class="w-full h-full border-0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex-grow flex flex-col justify-between space-y-2">
-            <div>
-              <div class="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Commercial / Color</div>
-              <h3 class="font-heading font-semibold text-base text-white group-hover:text-brand-cyan transition-colors">Vogue Cinematic Showreel</h3>
-            </div>
-            <div class="flex items-center justify-between text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Client: Vogue</span>
-              <span>4K DCI</span>
+        <div class="work-card cinema group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Vogue Reel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-brand-cyan/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
-        </div>
-
-        <!-- Video Card 2 -->
-        <div class="group bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 flex flex-col">
-          <div class="relative aspect-video bg-black overflow-hidden">
-            <iframe src="https://player.vimeo.com/video/357274719?title=0&byline=0&portrait=0" class="w-full h-full border-0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex-grow flex flex-col justify-between space-y-2">
-            <div>
-              <div class="text-xs font-mono text-purple-400 uppercase tracking-wider mb-1">Feature Film / Grading</div>
-              <h3 class="font-heading font-semibold text-base text-white group-hover:text-purple-400 transition-colors">Atmospheric Grade Reel</h3>
-            </div>
-            <div class="flex items-center justify-between text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Arri Alexa Mini</span>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-brand-cyan uppercase">Sinema & Dizi / Color Grading</div>
+            <h3 class="font-heading font-semibold text-white text-base">Cinematic Master Showreel</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Arri RAW 4K</span>
               <span>Dolby Vision</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 3 -->
-        <div class="group bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 flex flex-col">
-          <div class="relative aspect-video bg-black overflow-hidden">
-            <iframe src="https://player.vimeo.com/video/115533030?title=0&byline=0&portrait=0" class="w-full h-full border-0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex-grow flex flex-col justify-between space-y-2">
-            <div>
-              <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-1">Sound Design / Atmos</div>
-              <h3 class="font-heading font-semibold text-base text-white group-hover:text-emerald-400 transition-colors">Dolby Atmos Audio Suite</h3>
+        <!-- Video Card 2 -->
+        <div class="work-card commercial group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-purple-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('35727471')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Commercial Grade" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-purple-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-purple-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
-            <div class="flex items-center justify-between text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>7.1.4 Atmos</span>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-purple-400 uppercase">Reklam / Color Suite</div>
+            <h3 class="font-heading font-semibold text-white text-base">Commercial Color Grade</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>RED Monstro 8K</span>
+              <span>HDR10+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 3 -->
+        <div class="work-card audio group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-emerald-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Atmos Audio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-emerald-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-emerald-400 uppercase">Ses / Dolby Atmos®</div>
+            <h3 class="font-heading font-semibold text-white text-base">7.1.4 Atmos Sound Design</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Pro Tools HDX</span>
               <span>24-bit / 96kHz</span>
             </div>
           </div>
         </div>
 
       </div>
+
+      <!-- NEXT / TÜMÜNÜ GÖSTER BUTONU -->
+      <div class="text-center pt-4">
+        <button onclick="loadMoreWorks()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-brand-cyan text-slate-200 px-6 py-3 rounded-xl text-xs font-mono tracking-wider transition-all inline-flex items-center space-x-2">
+          <span data-tr="TÜM PROJELERİ İNCELE (VIMEO)" data-en="VIEW ALL WORKS (VIMEO)">TÜM PROJELERİ İNCELE (VIMEO)</span>
+          <i class="fa-solid fa-arrow-right text-brand-cyan"></i>
+        </button>
+      </div>
     </section>
 
-    <!-- DELIVERY COMPLIANCE & PLATFORMS (MINIMALIST BADGES WITH CUSTOM BRAND COLORS) -->
-    <section class="space-y-6 pt-6">
+    <!-- TEKNİK ALTYAPI & DONANIM (10GbE FIBER & STUDIO INFRASTRUCTURE) -->
+    <section class="space-y-6 pt-4">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
+          <i class="fa-solid fa-network-wired text-brand-cyan text-sm"></i>
+          <span data-tr="STÜDYO TEKNİK ALTYAPISI & FIBER AĞ" data-en="STUDIO TECHNICAL INFRASTRUCTURE & 10GbE NETWORK">STÜDYO TEKNİK ALTYAPISI & FIBER AĞ</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1" data-tr="Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı." data-en="Studio hardware engineered for uncompressed 4K/8K editing and high-speed data delivery.">
+          Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 10GbE Network Card -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-brand-cyan/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-bolt text-2xl text-brand-cyan"></i>
+            <span class="text-[10px] font-mono bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/30 px-2 py-0.5 rounded">10 Gbps Fiber</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">SAN & Central Storage</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları." data-en="Uncompressed 4K HDR playback and shared SAN editing servers via 10GbE backbone network.">
+            10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları.
+          </p>
+        </div>
+
+        <!-- Color Grading Master Suite -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-purple-400/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-display text-2xl text-purple-400"></i>
+            <span class="text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded">Sony BVM Master</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Color Grading Suite</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi." data-en="Sony BVM-HX310 4K HDR Trimaster monitors and DaVinci Resolve Advanced Panel control surface.">
+            Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi.
+          </p>
+        </div>
+
+        <!-- Dolby Atmos Audio Suite -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-emerald-400/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-volume-high text-2xl text-emerald-400"></i>
+            <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">7.1.4 Dolby Atmos®</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Audio & Dubbing Suite</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® mix stüdyosu." data-en="Certified Dolby Atmos® mixing suite equipped with Genelec SAM smart active monitors.">
+            Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® mix stüdyosu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY COMPLIANCE & PLATFORMS (CUSTOM BRAND COLORS) -->
+    <section class="space-y-6 pt-4">
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
           <i class="fa-solid fa-server text-brand-cyan text-sm"></i>
           <span data-tr="TESLİMAT STANDARTLARI VE PLATFORMLAR" data-en="DELIVERY COMPLIANCE & PLATFORMS">TESLİMAT STANDARTLARI VE PLATFORMLAR</span>
         </h2>
-        <p class="text-xs text-slate-400 mt-1" data-tr="Küresel ve yerel yayıncılar için onaylı IMF paketleri, QC kalite kontrol ve stüdyo teslimatları." data-en="Certified Masters, IMF Packages & QC Workflows for Global and Local Broadcasters.">
-          Küresel ve yerel yayıncılar için onaylı IMF paketleri, QC kalite kontrol ve stüdyo teslimatları.
-        </p>
       </div>
 
-      <!-- MINIMALIST PLATFORM CHIPS (CUSTOM BRAND COLORS) -->
       <div class="flex flex-wrap gap-2.5">
-        <!-- Netflix (Red) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#E50914] shadow-[0_0_8px_#E50914]"></span>
           <span class="font-bold text-white">Netflix</span>
           <span class="text-[10px] text-slate-500 uppercase">IMF / HDR</span>
         </div>
-
-        <!-- Disney+ (Navy Blue) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#113CCF] shadow-[0_0_8px_#113CCF]"></span>
           <span class="font-bold text-white">Disney+</span>
           <span class="text-[10px] text-slate-500 uppercase">4K / Atmos</span>
         </div>
-
-        <!-- Prime Video (Cyan/Light Blue) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#00A8E1] shadow-[0_0_8px_#00A8E1]"></span>
           <span class="font-bold text-white">Prime Video</span>
-          <span class="text-[10px] text-slate-500 uppercase">UHD / HDR10+</span>
+          <span class="text-[10px] text-slate-500 uppercase">UHD Master</span>
         </div>
-
-        <!-- Max / HBO (Purple) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#5B21B6] shadow-[0_0_8px_#5B21B6]"></span>
-          <span class="font-bold text-white">Max (HBO)</span>
-          <span class="text-[10px] text-slate-500 uppercase">Master Suite</span>
-        </div>
-
-        <!-- Apple TV+ (Silver/White) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-slate-200 shadow-[0_0_8px_#ffffff]"></span>
-          <span class="font-bold text-white">Apple TV+</span>
-          <span class="text-[10px] text-slate-500 uppercase">Dolby Vision</span>
-        </div>
-
-        <!-- GAİN (Neon Green) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#00FF87] shadow-[0_0_8px_#00FF87]"></span>
           <span class="font-bold text-white">GAİN</span>
           <span class="text-[10px] text-slate-500 uppercase">Yerel Onaylı</span>
         </div>
-
-        <!-- BluTV (Turquoise) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#00B4D8] shadow-[0_0_8px_#00B4D8]"></span>
-          <span class="font-bold text-white">BluTV</span>
-          <span class="text-[10px] text-slate-500 uppercase">Full Master</span>
-        </div>
-
-        <!-- Exxen (Yellow) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#FFC700] shadow-[0_0_8px_#FFC700]"></span>
           <span class="font-bold text-white">Exxen</span>
           <span class="text-[10px] text-slate-500 uppercase">HD / 4K QC</span>
         </div>
-
-        <!-- tabii (TRT Cyan) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF]"></span>
-          <span class="font-bold text-white">tabii</span>
-          <span class="text-[10px] text-slate-500 uppercase">TRT Master</span>
-        </div>
-
-        <!-- TOD / beIN (Purple Accent) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#9D4EDD] shadow-[0_0_8px_#9D4EDD]"></span>
-          <span class="font-bold text-white">TOD / beIN</span>
-          <span class="text-[10px] text-slate-500 uppercase">Broadcast</span>
-        </div>
-
-        <!-- TV+ (Orange) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#FFB700] shadow-[0_0_8px_#FFB700]"></span>
-          <span class="font-bold text-white">TV+</span>
-          <span class="text-[10px] text-slate-500 uppercase">EBU R128</span>
-        </div>
-
-        <!-- Tivibu (Deep Blue) -->
-        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#0077B6] shadow-[0_0_8px_#0077B6]"></span>
-          <span class="font-bold text-white">Tivibu</span>
-          <span class="text-[10px] text-slate-500 uppercase">DCP / MXF</span>
-        </div>
       </div>
     </section>
 
-    <!-- SUPPORTED PLATFORMS & SOFTWARE ECOSYSTEM -->
-    <section class="space-y-6 pt-4">
-      <div class="border-b border-slate-800 pb-3">
-        <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
-          <i class="fa-solid fa-microchip text-purple-400 text-sm"></i>
-          <span data-tr="YAZILIM & TEKNOLOJİ EKOSİSTEMİ" data-en="SUPPORTED PLATFORMS & SOFTWARE ECOSYSTEM">YAZILIM & TEKNOLOJİ EKOSİSTEMİ</span>
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-        <!-- DaVinci Resolve -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-brand-cyan/40 transition-all">
-          <i class="fa-solid fa-[#00F0FF] fa-palette text-2xl text-brand-cyan mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">DaVinci Resolve</div>
-          <div class="text-[10px] text-slate-500">Color & Fairlight</div>
+    <!-- LIVE TIMECODE & DYNAMIC 16-BAR AUDIO WAVEFORM BOTTOM BAR -->
+    <section class="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+      
+      <!-- CANLI TIMECODE TICKER (ANLIK SAAT BAZLI) -->
+      <div class="flex items-center space-x-4">
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+          <i class="fa-solid fa-clock text-brand-cyan text-xl"></i>
         </div>
-
-        <!-- Avid Media Composer -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-purple-400/40 transition-all">
-          <i class="fa-solid fa-scissors text-2xl text-purple-400 mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">Avid Media Composer</div>
-          <div class="text-[10px] text-slate-500">Offline & Online</div>
-        </div>
-
-        <!-- Pro Tools HDX -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-emerald-400/40 transition-all">
-          <i class="fa-solid fa-sliders text-2xl text-emerald-400 mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">Pro Tools Ultimate</div>
-          <div class="text-[10px] text-slate-500">Dolby Atmos Dubbing</div>
-        </div>
-
-        <!-- Adobe Creative Cloud -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-red-400/40 transition-all">
-          <i class="fa-solid fa-layer-group text-2xl text-red-400 mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">Adobe Suite</div>
-          <div class="text-[10px] text-slate-500">Premiere & After Effects</div>
-        </div>
-
-        <!-- Flame / VFX -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-amber-400/40 transition-all">
-          <i class="fa-solid fa-wand-magic-sparkles text-2xl text-amber-400 mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">Autodesk Flame</div>
-          <div class="text-[10px] text-slate-500">Finishing & VFX</div>
-        </div>
-
-        <!-- EasyDCP -->
-        <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl text-center hover:border-blue-400/40 transition-all">
-          <i class="fa-solid fa-compact-disc text-2xl text-blue-400 mb-2"></i>
-          <div class="text-xs font-bold text-white font-mono">easyDCP</div>
-          <div class="text-[10px] text-slate-500">DCI Compliant</div>
+        <div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest" data-tr="CANLI STÜDYO SAATİ / TIMECODE" data-en="LIVE STUDIO CLOCK / TIMECODE">CANLI STÜDYO SAATİ / TIMECODE</div>
+          <div id="timecodeDisplay" class="text-2xl font-mono font-bold text-white tracking-wider">
+            00:00:00:00
+          </div>
         </div>
       </div>
+
+      <!-- 16-BAR RİTMİK AUDIO WAVEFORM EQUALIZER -->
+      <div class="flex items-center space-x-1.5 h-10 px-4 py-2 bg-slate-900/80 border border-slate-800 rounded-xl">
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.1s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.4s;"></div>
+        <div class="waveform-bar w-1.5 bg-purple-500 rounded-full" style="animation-delay: 0.2s;"></div>
+        <div class="waveform-bar w-1.5 bg-purple-500 rounded-full" style="animation-delay: 0.6s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.3s;"></div>
+        <div class="waveform-bar w-1.5 bg-emerald-400 rounded-full" style="animation-delay: 0.5s;"></div>
+        <div class="waveform-bar w-1.5 bg-emerald-400 rounded-full" style="animation-delay: 0.15s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-red rounded-full" style="animation-delay: 0.7s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-red rounded-full" style="animation-delay: 0.25s;"></div>
+        <div class="waveform-bar w-1.5 bg-emerald-400 rounded-full" style="animation-delay: 0.45s;"></div>
+        <div class="waveform-bar w-1.5 bg-purple-500 rounded-full" style="animation-delay: 0.35s;"></div>
+        <div class="waveform-bar w-1.5 bg-purple-500 rounded-full" style="animation-delay: 0.65s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.55s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.8s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.2s;"></div>
+        <div class="waveform-bar w-1.5 bg-brand-cyan rounded-full" style="animation-delay: 0.4s;"></div>
+      </div>
+
     </section>
 
   </main>
+
+  <!-- LIGHTBOX MODAL (FOR VIMEO PLAYBACK) -->
+  <div id="videoLightbox" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-brand-cyan text-2xl z-10 w-10 h-10 bg-black/60 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <iframe id="lightboxIframe" src="" class="w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-800 bg-[#070709] py-8 text-xs font-mono text-slate-500 mt-16">
@@ -432,29 +440,41 @@
         <span>&copy; 2026 ABT Post Production Services.</span>
       </div>
       <div class="flex items-center space-x-6 text-slate-400">
-        <span>Levent, Istanbul / Turkey</span>
+        <span>Levent Mah. Ortanca Sk. No:6, 34330 Besiktas / Istanbul</span>
         <a href="mailto:info@abtistanbul.com" class="hover:text-brand-cyan transition-colors">info@abtistanbul.com</a>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPT FOR LANGUAGE & THEME TOGGLE -->
+  <!-- JAVASCRIPT: TIMECODE, LANGUAGE, THEME & LIGHTBOX -->
   <script>
-    let currentLang = 'TR';
+    // 1. Live Timecode Clock (Anlık Saat Ticker)
+    function updateTimecode() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const f = String(Math.floor(now.getMilliseconds() / 40)).padStart(2, '0'); // 25 FPS frame sayacı
+      
+      const tcElement = document.getElementById('timecodeDisplay');
+      if (tcElement) {
+        tcElement.innerText = `${h}:${m}:${s}:${f}`;
+      }
+    }
+    setInterval(updateTimecode, 40);
 
+    // 2. Bilingual Toggle (TR / EN)
+    let currentLang = 'TR';
     function toggleLanguage() {
       currentLang = currentLang === 'TR' ? 'EN' : 'TR';
       document.getElementById('langLabel').innerText = currentLang;
 
       document.querySelectorAll('[data-tr]').forEach(el => {
-        if (currentLang === 'TR') {
-          el.innerText = el.getAttribute('data-tr');
-        } else {
-          el.innerText = el.getAttribute('data-en');
-        }
+        el.innerText = currentLang === 'TR' ? el.getAttribute('data-tr') : el.getAttribute('data-en');
       });
     }
 
+    // 3. Light / Dark Theme Toggle
     function toggleTheme() {
       const htmlEl = document.documentElement;
       const icon = document.getElementById('themeIcon');
@@ -472,6 +492,49 @@
         document.body.style.backgroundColor = '#0A0A0C';
         document.body.style.color = '#E2E8F0';
       }
+    }
+
+    // 4. Portfolio Filtering
+    function filterWorks(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-cyan/20', 'border-brand-cyan', 'text-brand-cyan');
+        btn.classList.add('bg-slate-900', 'border-slate-800', 'text-slate-400');
+      });
+
+      const activeBtn = document.querySelector(`[data-filter="${category}"]`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-900', 'border-slate-800', 'text-slate-400');
+        activeBtn.classList.add('bg-brand-cyan/20', 'border-brand-cyan', 'text-brand-cyan');
+      }
+
+      document.querySelectorAll('.work-card').forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 5. Lightbox Modal Player
+    function openLightbox(vimeoId) {
+      const modal = document.getElementById('videoLightbox');
+      const iframe = document.getElementById('lightboxIframe');
+      iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('videoLightbox');
+      const iframe = document.getElementById('lightboxIframe');
+      iframe.src = '';
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function loadMoreWorks() {
+      window.open('https://vimeo.com/abtistanbul', '_blank');
     }
   </script>
 </body>
