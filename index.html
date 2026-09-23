@@ -1,1028 +1,722 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark" data-lang="tr">
+<html lang="tr" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABT Istanbul | High-End Post Production & Color Grading Suite</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --bg-color: #0d0f12;
-            --card-bg: #15181e;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: #262b36;
-            --accent-color: #00adef;
-            --accent-glow: rgba(0, 173, 239, 0.4);
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.7);
-            --hud-color: #00adef;
-            --hud-text: #ffffff;
-            --hud-glow: rgba(0, 173, 239, 0.4);
-            --hud-border: rgba(0, 173, 239, 0.35);
-            --flare-opacity: 0.35;
-            --chip-bg: rgba(255, 255, 255, 0.03);
-            --chip-border: rgba(255, 255, 255, 0.1);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABT Istanbul | Post Production Services</title>
+  <meta name="description" content="ABT Istanbul - Visual Experiences & Creative Production. High-End Post-Production, Color Grading, Dolby Atmos® Sound, VFX, and DCI DCP Mastering Services in Istanbul, Turkey.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#FF0033',
+              cyan: '#00F0FF',
+              purple: '#8A2BE2',
+              dark: '#0A0A0C',
+              card: '#121216',
+              border: '#2A2A35'
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
         }
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --border-color: #e2e8f0;
-            --accent-color: #0088cc;
-            --accent-glow: rgba(0, 136, 204, 0.3);
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 12px 25px rgba(0, 0, 0, 0.12);
-            --hud-color: #0088cc;
-            --hud-text: #0f172a;
-            --hud-glow: rgba(0, 136, 204, 0.25);
-            --hud-border: rgba(0, 136, 204, 0.3);
-            --flare-opacity: 0.15;
-            --chip-bg: rgba(0, 0, 0, 0.02);
-            --chip-border: rgba(0, 0, 0, 0.08);
-        }
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0A0A0C;
+      color: #E2E8F0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
+    /* ZARİF KAMERA KÖŞELERİ (Noktalı Çerçeve Yerine Eski Köşe Nişangahları) */
+    .hud-corner {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      z-index: 40;
+    }
+    .hud-corner-tl { top: 16px; left: 16px; border-top: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
+    .hud-corner-tr { top: 16px; right: 16px; border-top: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
+    .hud-corner-bl { bottom: 16px; left: 16px; border-bottom: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
+    .hud-corner-br { bottom: 16px; right: 16px; border-bottom: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            position: relative;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+    /* Multi-color gradient typography */
+    .multicolor-gradient-text {
+      background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 20%, #9d50bb 40%, #f78ca0 60%, #fe9a8b 80%, #fbc2eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
 
-        /* Ambient Flares Background */
-        .ambient-flares {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
+    /* ESKİ KLASİK SES ÇUBUKLARI (EQUALIZER BARS) */
+    .eq-bar {
+      display: inline-block;
+      width: 3px;
+      margin: 0 1px;
+      background-color: #00F0FF;
+      border-radius: 1px;
+      animation: eqBounce 1s ease-in-out infinite alternate;
+    }
+    @keyframes eqBounce {
+      0% { height: 4px; }
+      100% { height: 24px; }
+    }
 
-        .flare {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: var(--flare-opacity);
-            animation: floatFlare 18s ease-in-out infinite alternate;
-        }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0C;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A35;
+      border-radius: 4px;
+    }
 
-        .flare-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 173, 239, 0.85) 0%, rgba(0,0,0,0) 70%);
-            top: -120px;
-            left: -120px;
-        }
-
-        .flare-2 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.65) 0%, rgba(0,0,0,0) 70%);
-            bottom: -180px;
-            right: -120px;
-            animation-delay: -6s;
-        }
-
-        @keyframes floatFlare {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(70px, 45px) scale(1.12); }
-            100% { transform: translate(-50px, -35px) scale(0.92); }
-        }
-
-        /* Cinematic HUD Viewfinder Overlay */
-        .cinematic-hud {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            font-family: "Courier New", Courier, monospace;
-            font-weight: 700;
-        }
-
-        .hud-top, .hud-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.78rem;
-            color: var(--hud-text);
-            text-shadow: 0 0 6px var(--hud-glow);
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .hud-rec {
-            color: #ff2a2a;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 0 16px rgba(255, 42, 42, 0.95);
-            font-weight: 900;
-            font-size: 1.25rem;
-            letter-spacing: 2.5px;
-            background: rgba(0, 0, 0, 0.45);
-            padding: 4px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 42, 42, 0.5);
-            backdrop-filter: blur(4px);
-        }
-
-        .rec-dot {
-            width: 14px;
-            height: 14px;
-            background-color: #ff2a2a;
-            border-radius: 50%;
-            box-shadow: 0 0 14px #ff2a2a, 0 0 22px #ff2a2a;
-            animation: recBlink 0.85s infinite;
-        }
-
-        @keyframes recBlink {
-            0%, 100% { opacity: 1; transform: scale(1.05); }
-            50% { opacity: 0.15; transform: scale(0.85); }
-        }
-
-        .timecode-val {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--hud-color);
-            text-shadow: 0 0 8px var(--hud-glow);
-            white-space: nowrap;
-        }
-
-        .hud-pill {
-            background: rgba(0, 173, 239, 0.1);
-            border: 1px solid var(--hud-border);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.72rem;
-            letter-spacing: 1px;
-        }
-
-        .viewfinder-frame {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
-            border: 1px dashed var(--hud-border);
-            opacity: 0.35;
-            pointer-events: none;
-        }
-
-        .corner {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            border-color: var(--hud-color);
-            border-style: solid;
-            opacity: 0.75;
-        }
-
-        .tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
-        .tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
-        .bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
-        .br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
-
-        /* 16-Bar Equalizer Waveform */
-        .waveform-container {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 18px;
-            width: 140px;
-            padding: 0;
-        }
-
-        .wave-bar {
-            flex: 1;
-            background-color: var(--hud-color);
-            border-radius: 1px;
-            opacity: 0.85;
-            animation: waveAnim 1.1s ease-in-out infinite alternate;
-        }
-
-        @keyframes waveAnim {
-            0% { height: 12%; opacity: 0.3; }
-            100% { height: 100%; opacity: 0.95; }
-        }
-
-        /* Color Banner Gradients */
-        .c-cyan   { color: #00bfff; }
-        .c-blue   { color: #3b82f6; }
-        .c-indigo { color: #6366f1; }
-        .c-purple { color: #a855f7; }
-        .c-violet { color: #d946ef; }
-        .c-pink   { color: #ec4899; }
-        .c-coral  { color: #f43f5e; }
-        .c-orange { color: #f97316; }
-
-        /* Color Bar Strip Visual Element */
-        .color-panel-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 18px;
-            max-width: 860px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .color-bar-strip {
-            display: flex;
-            height: 22px;
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .cb-item {
-            flex: 1;
-            height: 100%;
-            transition: transform 0.2s ease;
-        }
-
-        .cb-item:hover { transform: scaleY(1.2); z-index: 2; }
-        .cb-white   { background-color: #ffffff; }
-        .cb-yellow  { background-color: #ffeb3b; }
-        .cb-cyan    { background-color: #00bcd4; }
-        .cb-green   { background-color: #4caf50; }
-        .cb-magenta { background-color: #e91e63; }
-        .cb-red     { background-color: #f44336; }
-        .cb-blue    { background-color: #2196f3; }
-        .cb-black   { background-color: #000000; }
-        .cb-gray1   { background-color: #1a1a1a; }
-        .cb-gray2   { background-color: #333333; }
-        .cb-gray3   { background-color: #666666; }
-
-        /* Video Grid Cards */
-        .video-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-color);
-        }
-
-        .thumb-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            background-color: #000;
-            overflow: hidden;
-        }
-
-        .thumb-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .video-card:hover .thumb-container img {
-            transform: scale(1.08);
-        }
-
-        .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 58px;
-            height: 58px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-            z-index: 2;
-            border: 1.5px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(4px);
-        }
-
-        .play-btn::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 9px 0 9px 16px;
-            border-color: transparent transparent transparent #ffffff;
-            margin-left: 3px;
-        }
-
-        .video-card:hover .play-btn {
-            background: var(--accent-color);
-            border-color: #ffffff;
-            transform: translate(-50%, -50%) scale(1.12);
-        }
-
-        /* Platform Chip Styling */
-        .platform-chip {
-            background: var(--chip-bg);
-            border: 1px solid var(--chip-border);
-            padding: 10px 18px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.25s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .platform-chip:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-3px);
-            background: rgba(0, 173, 239, 0.08);
-        }
-
-        .platform-dot {
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-
-        .dot-netflix   { background-color: #E50914; box-shadow: 0 0 8px rgba(229, 9, 20, 0.8); }
-        .dot-disney    { background-color: #113CCF; box-shadow: 0 0 8px rgba(17, 60, 207, 0.8); }
-        .dot-prime     { background-color: #00A8E1; box-shadow: 0 0 8px rgba(0, 168, 225, 0.8); }
-        .dot-max       { background-color: #5B21B6; box-shadow: 0 0 8px rgba(91, 33, 182, 0.8); }
-        .dot-apple     { background-color: #E2E8F0; box-shadow: 0 0 8px rgba(226, 232, 240, 0.8); }
-        .dot-gain      { background-color: #00FF87; box-shadow: 0 0 8px rgba(0, 255, 135, 0.8); }
-        .dot-blutv     { background-color: #00B4D8; box-shadow: 0 0 8px rgba(0, 180, 216, 0.8); }
-        .dot-exxen     { background-color: #FFC700; box-shadow: 0 0 8px rgba(255, 199, 0, 0.8); }
-        .dot-tabii     { background-color: #00E5FF; box-shadow: 0 0 8px rgba(0, 229, 255, 0.8); }
-        .dot-tod       { background-color: #9D4EDD; box-shadow: 0 0 8px rgba(157, 78, 221, 0.8); }
-        .dot-tvplus    { background-color: #FFB700; box-shadow: 0 0 8px rgba(255, 183, 0, 0.8); }
-        .dot-tivibu    { background-color: #0077B6; box-shadow: 0 0 8px rgba(0, 119, 182, 0.8); }
-
-        /* Video Lightbox Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            position: relative;
-            width: 100%;
-            max-width: 960px;
-            background: #000;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
-            border: 1px solid var(--border-color);
-        }
-
-        .modal-body {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-        }
-
-        .modal-body iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -42px;
-            right: 0;
-            color: #fff;
-            font-size: 32px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover { color: var(--accent-color); }
-    </style>
+    /* SMPTE Color Bar Strip */
+    .smpte-bar {
+      display: flex;
+      height: 6px;
+      width: 100%;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .smpte-c1 { background-color: #c0c0c0; width: 14.28%; }
+    .smpte-c2 { background-color: #c0c000; width: 14.28%; }
+    .smpte-c3 { background-color: #00c0c0; width: 14.28%; }
+    .smpte-c4 { background-color: #00c0c0; width: 14.28%; }
+    .smpte-c5 { background-color: #c000c0; width: 14.28%; }
+    .smpte-c6 { background-color: #c00000; width: 14.28%; }
+    .smpte-c7 { background-color: #0000c0; width: 14.32%; }
+  </style>
 </head>
-<body>
+<body class="bg-[#0A0A0C] text-slate-200 transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
-    <!-- Ambient Glow Flares -->
-    <div class="ambient-flares">
-        <div class="flare flare-1"></div>
-        <div class="flare flare-2"></div>
-    </div>
+  <!-- ZARİF KAMERA HUD KÖŞELERİ -->
+  <div class="hud-corner hud-corner-tl"></div>
+  <div class="hud-corner hud-corner-tr"></div>
+  <div class="hud-corner hud-corner-bl"></div>
+  <div class="hud-corner hud-corner-br"></div>
 
-    <div class="cinematic-hud">
-        <div class="hud-top">
-            <div class="flex items-center gap-3">
-                <span class="hud-rec"><span class="rec-dot"></span> REC</span>
-                <span class="hud-pill hidden sm:inline-block">24.00 FPS</span>
-                <span class="hud-pill hidden sm:inline-block">RAW 12-BIT</span>
-                <span class="hud-pill">DCI 4K</span>
-            </div>
-            <div class="flex items-center gap-3">
-                <span class="hud-pill hidden md:inline-block">ISO 800</span>
-                <span class="hud-pill hidden md:inline-block">5600K</span>
-                <span class="hud-pill" style="color: #00ff87; border-color: rgba(0,255,135,0.4);">BAT 98%</span>
-            </div>
+  <!-- KAMERA METRİK NÜANSLARI (SAĞ ÜST KÖŞE) -->
+  <div class="fixed top-4 right-8 z-40 font-mono text-[10px] text-slate-400 space-x-3 hidden md:flex items-center bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded border border-slate-800">
+    <span class="text-brand-cyan font-bold">4K DCI</span>
+    <span>•</span>
+    <span>24 FPS</span>
+    <span>•</span>
+    <span>ISO 800</span>
+    <span>•</span>
+    <span>5600K</span>
+    <span>•</span>
+    <span>RAW 12-BIT</span>
+    <span>•</span>
+    <span class="text-emerald-400"><i class="fa-solid fa-battery-full"></i> 98%</span>
+  </div>
+
+  <!-- TOP HEADER / HUD NAVIGATION -->
+  <header class="border-b border-slate-800/80 bg-[#0A0A0C]/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between relative">
+      
+      <!-- SOL TARAF: REC GÖSTERGESİ -->
+      <div class="flex items-center">
+        <div class="flex items-center space-x-2 bg-red-950/40 border border-red-800/60 text-red-400 px-4 py-2 rounded-full text-sm font-mono tracking-wider font-bold animate-pulse-slow">
+          <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
+          <span class="text-base tracking-widest text-red-500">● REC</span>
         </div>
+      </div>
+
+      <!-- ORTA: LOGO (TAM MERKEZDE - SİYAH KUTU OLMADAN DOĞAL YERLEŞİM) -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+        <a href="#" class="block focus:outline-none group">
+          <img 
+            src="abt_logo_siyahta.jpg" 
+            alt="ABT Istanbul" 
+            class="site-logo-img max-w-[320px] max-h-[85px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+            onerror="this.onerror=null; this.classList.add('hidden'); document.getElementById('logo-fallback').classList.remove('hidden');"
+          />
+          <div id="logo-fallback" class="hidden text-center">
+            <span class="text-3xl font-bold tracking-tighter text-white font-heading block uppercase">abt</span>
+            <span class="text-xs font-semibold tracking-[0.35em] text-brand-cyan block uppercase -mt-1">istanbul</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- SAĞ TARAF: DİL & TEMA KONTROLLERİ -->
+      <div class="flex items-center space-x-3">
+        <button id="langToggle" onclick="toggleLanguage()" class="flex items-center space-x-2 bg-slate-900 border border-slate-700/80 hover:border-brand-cyan text-slate-300 px-3.5 py-2 rounded-lg text-xs font-mono transition-all">
+          <i class="fa-solid fa-globe text-brand-cyan"></i>
+          <span id="langLabel" class="font-bold">TR</span>
+        </button>
+
+        <button id="themeToggle" onclick="toggleTheme()" class="bg-slate-900 border border-slate-700/80 hover:border-amber-400 text-slate-300 p-2.5 rounded-lg text-xs font-mono transition-all">
+          <i class="fa-solid fa-sun text-amber-400 text-sm" id="themeIcon"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-16">
+
+    <!-- HERO / TITLE SECTION -->
+    <section class="text-center space-y-6 pt-2">
+      <div class="inline-flex items-center space-x-3 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-mono text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span data-tr="POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU" data-en="POST-PRODUCTION & COLOR GRADING SUITE">POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU</span>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-xl sm:text-2xl font-medium tracking-wide text-slate-400 uppercase font-heading" data-tr="Görsel Deneyimler & Yaratıcı Prodüksiyon" data-en="Visual Experiences & Creative Production">
+          Görsel Deneyimler & Yaratıcı Prodüksiyon
+        </h2>
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading max-w-5xl mx-auto leading-tight">
+          <span class="multicolor-gradient-text uppercase">
+            HIGH-END POST-PRODUCTION, COLOR GRADING & DOLBY ATMOS® SOUND
+          </span>
+        </h1>
+      </div>
+
+      <!-- SMPTE COLOR BAR PANEL & HUD METRICS -->
+      <div class="max-w-xl mx-auto space-y-2 pt-2">
+        <div class="smpte-bar opacity-85 shadow-lg">
+          <div class="smpte-c1" title="C0 Silver"></div>
+          <div class="smpte-c2" title="C1 Yellow"></div>
+          <div class="smpte-c3" title="C2 Cyan"></div>
+          <div class="smpte-c4" title="C3 Green"></div>
+          <div class="smpte-c5" title="C4 Magenta"></div>
+          <div class="smpte-c6" title="C5 Red"></div>
+          <div class="smpte-c7" title="C6 Blue"></div>
+        </div>
+        <div class="flex justify-between items-center text-[10px] font-mono text-slate-500 uppercase tracking-widest px-1">
+          <span>SMPTE EG 1-1990</span>
+          <span>DCI-P3 / REC.2020 / SDR-HDR</span>
+          <span>4K DCI @ 24 FPS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORKS SECTION (NO CATEGORIES, EXACTLY 6 VIDEOS ON FIRST SCREEN) -->
+    <section class="space-y-8">
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
+        <div>
+          <h2 class="text-3xl font-extrabold font-heading tracking-tight">
+            <span class="multicolor-gradient-text">SELECTED WORKS</span>
+          </h2>
+          <p class="text-slate-400 text-sm mt-1" data-tr="Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri." data-en="Featured films, series, commercial and color grading projects.">
+            Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri.
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs font-mono text-slate-500">
+          <i class="fa-solid fa-film text-brand-cyan"></i>
+          <span>SHOWCASE PORTFOLIO</span>
+        </div>
+      </div>
+
+      <!-- VIDEO GALLERY GRID (6 CARDS) -->
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <div class="viewfinder-frame">
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
+        <!-- Video Card 1 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Work 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-brand-cyan/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-brand-cyan uppercase">Feature Film / Color Grading</div>
+            <h3 class="font-heading font-semibold text-white text-base">Cinematic Feature Showreel</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Arri RAW 4K</span>
+              <span>Dolby Vision</span>
+            </div>
+          </div>
         </div>
 
-        <div class="hud-bottom">
-            <span>TCG</span>
-            <span class="timecode-val" id="live-timecode">00:00:00:00</span>
-            
-            <div class="waveform-container" id="waveform">
-                <div class="wave-bar" style="animation-duration: 0.8s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.1s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.6s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.3s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.9s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.7s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.2s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.5s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.0s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.8s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.4s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.6s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.9s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.1s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.7s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.3s;"></div>
+        <!-- Video Card 2 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-purple-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Work 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-purple-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-purple-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-purple-400 uppercase">Commercial / Color Suite</div>
+            <h3 class="font-heading font-semibold text-white text-base">Commercial Color Grade</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>RED Monstro 8K</span>
+              <span>HDR10+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 3 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-emerald-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Work 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-emerald-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-emerald-400 uppercase">Ses / 11 + 1 Dolby Atmos®</div>
+            <h3 class="font-heading font-semibold text-white text-base">Atmos Audio Mix & Mastering</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Pro Tools HDX</span>
+              <span>11+1 Dolby Atmos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 4 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Work 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-amber-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-amber-400 uppercase">OTT Series / Finishing</div>
+            <h3 class="font-heading font-semibold text-white text-base">Digital Series Post Suite</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Sony Venice 6K</span>
+              <span>IMF Package</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 5 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-red-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Work 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-red-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-red-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-red-400 uppercase">Music Video / Color & VFX</div>
+            <h3 class="font-heading font-semibold text-white text-base">High-End Visual Effects</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>Autodesk Flame</span>
+              <span>4K Master</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 6 -->
+        <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-blue-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
+          <div class="relative aspect-video bg-slate-950 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80" alt="Work 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="w-12 h-12 rounded-full bg-blue-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-blue-400/30"><i class="fa-solid fa-play"></i></span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div class="text-xs font-mono text-blue-400 uppercase">Cinema / DCI DCP Mastering</div>
+            <h3 class="font-heading font-semibold text-white text-base">Theatrical DCP Mastering</h3>
+            <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
+              <span>easyDCP</span>
+              <span>DCI Compliant</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SHOW MORE BUTTON -->
+      <div class="text-center pt-2">
+        <button onclick="loadMoreWorks()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-brand-cyan text-slate-200 px-6 py-3 rounded-xl text-xs font-mono tracking-wider transition-all inline-flex items-center space-x-2">
+          <span data-tr="TÜM PROJELERİ İNCELE" data-en="VIEW ALL WORKS">TÜM PROJELERİ İNCELE</span>
+          <i class="fa-solid fa-arrow-right text-brand-cyan"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- TEKNİK ALTYAPI (BAŞLIKTAN FIBER AĞ KALDIRILDI) -->
+    <section class="space-y-6 pt-4">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
+          <i class="fa-solid fa-microchip text-brand-cyan text-sm"></i>
+          <span data-tr="STÜDYO TEKNİK ALTYAPISI" data-en="STUDIO TECHNICAL INFRASTRUCTURE">STÜDYO TEKNİK ALTYAPISI</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1" data-tr="Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı." data-en="Studio hardware engineered for uncompressed 4K/8K editing and high-speed data delivery.">
+          Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 1. SAN & Fiber Network -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-brand-cyan/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-network-wired text-2xl text-brand-cyan"></i>
+            <span class="text-[10px] font-mono bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/30 px-2 py-0.5 rounded">10 Gbps Fiber</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">SAN & Fiber Network</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları." data-en="Uncompressed 4K HDR playback and shared SAN editing servers via 10GbE backbone network.">
+            10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları.
+          </p>
+        </div>
+
+        <!-- 2. Color Grading Suite -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-purple-400/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-display text-2xl text-purple-400"></i>
+            <span class="text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded">Sony BVM Master</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Color Grading Suite</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi." data-en="Sony BVM-HX310 4K HDR Trimaster monitors and DaVinci Resolve Advanced Panel control surface.">
+            Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi.
+          </p>
+        </div>
+
+        <!-- 3. 11 + 1 Dolby Atmos® -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-emerald-400/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-volume-high text-2xl text-emerald-400"></i>
+            <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">11 + 1 Dolby Atmos®</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">11 + 1 Dolby Atmos®</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="11 + 1 (7.1.4) Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo." data-en="Certified 11 + 1 (7.1.4) Dolby Atmos® mixing studio equipped with Genelec SAM smart active monitors.">
+            11 + 1 (7.1.4) Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo.
+          </p>
+        </div>
+
+        <!-- 4. DCP & Mastering Lab -->
+        <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl space-y-3 hover:border-amber-400/40 transition-all">
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-compact-disc text-2xl text-amber-400"></i>
+            <span class="text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">DCI / KDM</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">DCP & Mastering Lab</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="Sinema salonları için DCI uyumlu unencrypted/encrypted DCP paketleme ve KDM anahtar üretimi." data-en="DCI compliant DCP packaging and KDM key generation for cinema distribution.">
+            Sinema salonları için DCI uyumlu unencrypted/encrypted DCP paketleme ve KDM anahtar üretimi.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIGITAL PLATFORMS -->
+    <section class="space-y-6 pt-4">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
+          <i class="fa-solid fa-tv text-brand-cyan text-sm"></i>
+          <span data-tr="DİJİTAL PLATFORMLAR" data-en="DIGITAL PLATFORMS">DİJİTAL PLATFORMLAR</span>
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-2.5">
+        <!-- Netflix -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#E50914] shadow-[0_0_8px_#E50914]"></span>
+          <span class="font-bold text-white">Netflix</span>
+          <span class="text-[10px] text-slate-500 uppercase">IMF / HDR</span>
+        </div>
+
+        <!-- Disney+ -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#113CCF] shadow-[0_0_8px_#113CCF]"></span>
+          <span class="font-bold text-white">Disney+</span>
+          <span class="text-[10px] text-slate-500 uppercase">4K / Atmos</span>
+        </div>
+
+        <!-- Prime Video -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#00A8E1] shadow-[0_0_8px_#00A8E1]"></span>
+          <span class="font-bold text-white">Prime Video</span>
+          <span class="text-[10px] text-slate-500 uppercase">UHD Master</span>
+        </div>
+
+        <!-- Max (HBO) -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#5B21B6] shadow-[0_0_8px_#5B21B6]"></span>
+          <span class="font-bold text-white">Max (HBO)</span>
+          <span class="text-[10px] text-slate-500 uppercase">Master Suite</span>
+        </div>
+
+        <!-- Apple TV+ -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-200 shadow-[0_0_8px_#ffffff]"></span>
+          <span class="font-bold text-white">Apple TV+</span>
+          <span class="text-[10px] text-slate-500 uppercase">Dolby Vision</span>
+        </div>
+
+        <!-- GAİN -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#00FF87] shadow-[0_0_8px_#00FF87]"></span>
+          <span class="font-bold text-white">GAİN</span>
+          <span class="text-[10px] text-slate-500 uppercase">Yerel Onaylı</span>
+        </div>
+
+        <!-- BluTV -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#00B4D8] shadow-[0_0_8px_#00B4D8]"></span>
+          <span class="font-bold text-white">BluTV</span>
+          <span class="text-[10px] text-slate-500 uppercase">Full Master</span>
+        </div>
+
+        <!-- Exxen -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FFC700] shadow-[0_0_8px_#FFC700]"></span>
+          <span class="font-bold text-white">Exxen</span>
+          <span class="text-[10px] text-slate-500 uppercase">HD / 4K QC</span>
+        </div>
+
+        <!-- tabii -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF]"></span>
+          <span class="font-bold text-white">tabii</span>
+          <span class="text-[10px] text-slate-500 uppercase">TRT Master</span>
+        </div>
+
+        <!-- TOD / beIN -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#9D4EDD] shadow-[0_0_8px_#9D4EDD]"></span>
+          <span class="font-bold text-white">TOD / beIN</span>
+          <span class="text-[10px] text-slate-500 uppercase">Broadcast</span>
+        </div>
+
+        <!-- TV+ -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FFB700] shadow-[0_0_8px_#FFB700]"></span>
+          <span class="font-bold text-white">TV+</span>
+          <span class="text-[10px] text-slate-500 uppercase">EBU R128</span>
+        </div>
+
+        <!-- Tivibu -->
+        <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#0077B6] shadow-[0_0_8px_#0077B6]"></span>
+          <span class="font-bold text-white">Tivibu</span>
+          <span class="text-[10px] text-slate-500 uppercase">DCP / MXF</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION WITH DARK MAPS (BEĞENİLEN KARARAN MAPS MODU) -->
+    <section class="space-y-6 pt-4 border-t border-slate-800">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
+          <i class="fa-solid fa-location-dot text-brand-cyan text-sm"></i>
+          <span data-tr="İLETIŞİM VE STÜDYO ADRESİ" data-en="CONTACT & STUDIO LOCATION">İLETIŞİM VE STÜDYO ADRESİ</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <!-- CONTACT DETAILS -->
+        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold font-heading text-white">ABT ISTANBUL</h3>
+            <p class="text-slate-400 text-sm leading-relaxed" data-tr="Projeleriniz, renk düzenleme, 11+1 Dolby Atmos ses miksajı ve stüdyo rezervasyonları için bizimle iletişime geçin." data-en="Get in touch with us for project inquiries, color grading, 11+1 Dolby Atmos sound mixing, and studio bookings.">
+              Projeleriniz, renk düzenleme, 11+1 Dolby Atmos ses miksajı ve stüdyo rezervasyonları için bizimle iletişime geçin.
+            </p>
+          </div>
+
+          <div class="space-y-4 font-mono text-sm">
+            <div class="flex items-start space-x-3">
+              <i class="fa-solid fa-phone text-emerald-400 mt-1"></i>
+              <div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="TELEFON" data-en="PHONE">TELEFON</div>
+                <a href="tel:+902122829024" class="text-slate-200 hover:text-brand-cyan transition-colors">+90 (212) 282 90 24</a>
+              </div>
             </div>
 
-            <span class="hud-pill hidden sm:inline-block">LOG-C4</span>
-            <span class="hud-pill hidden sm:inline-block">SHUTTER 180.0°</span>
-            <span>ABT-STUDIO</span>
+            <div class="flex items-start space-x-3">
+              <i class="fa-solid fa-map-pin text-brand-cyan mt-1"></i>
+              <div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="ADRES" data-en="ADDRESS">ADRES</div>
+                <div class="text-slate-200">Levent Mah. Ortanca Sk. No:6, 34330 Besiktas / Istanbul / Turkey</div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <i class="fa-solid fa-envelope text-purple-400 mt-1"></i>
+              <div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="E-POSTA" data-en="EMAIL">E-POSTA</div>
+                <a href="mailto:info@abtistanbul.com" class="text-brand-cyan hover:underline">info@abtistanbul.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800/80 flex items-center space-x-4">
+            <a href="https://vimeo.com/abtistanbul" target="_blank" class="w-10 h-10 bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 rounded-lg flex items-center justify-center transition-all text-slate-300">
+              <i class="fa-brands fa-vimeo-v"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="w-10 h-10 bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 rounded-lg flex items-center justify-center transition-all text-slate-300">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 rounded-lg flex items-center justify-center transition-all text-slate-300">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
         </div>
+
+        <!-- GOOGLE MAPS EMBED IFRAME (BEĞENİLEN ŞIK KARARAN SİYAH/BEYAZ TEMA) -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden min-h-[300px] relative">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.204523910283!2d29.0125!3d41.0772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab6518a4a5555%3A0x6a0f123456789abc!2sOrtanca%20Sk.%20No%3A6%2C%2034330%20Be%C5%9Fikta%C5%9F%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
+            class="w-full h-full min-h-[320px] border-0 filter invert-[0.9] hue-rotate-180 contrast-[1.2] opacity-80 hover:opacity-100 transition-all duration-500" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE TIMECODE & CLASSIC AUDIO EQUALIZER BARS -->
+    <section class="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+      <div class="flex items-center space-x-4">
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+          <i class="fa-solid fa-clock text-brand-cyan text-xl"></i>
+        </div>
+        <div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest" data-tr="CANLI STÜDYO SAATİ / TIMECODE" data-en="LIVE STUDIO CLOCK / TIMECODE">CANLI STÜDYO SAATİ / TIMECODE</div>
+          <div id="timecodeDisplay" class="text-2xl font-mono font-bold text-white tracking-wider">
+            00:00:00:00
+          </div>
+        </div>
+      </div>
+
+      <!-- ESKİ KLASİK DİKEY DİJİTAL SES ÇUBUKLARI (AUDIO EQUALIZER) -->
+      <div class="flex items-end h-8 px-4 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl space-x-1">
+        <span class="eq-bar" style="animation-delay: 0.1s; height: 12px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.4s; height: 22px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.2s; height: 8px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.6s; height: 18px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.3s; height: 26px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.5s; height: 14px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.15s; height: 20px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.7s; height: 10px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.25s; height: 24px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.45s; height: 16px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.35s; height: 22px;"></span>
+        <span class="eq-bar" style="animation-delay: 0.65s; height: 12px;"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="videoLightbox" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-brand-cyan text-2xl z-10 w-10 h-10 bg-black/60 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <iframe id="lightboxIframe" src="" class="w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
+  </div>
 
-    <!-- Main Container -->
-    <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
-        
-        <div class="flex justify-between items-center mb-8">
-            <div class="text-xs font-mono text-gray-400 tracking-wider hidden sm:block">
-                ABT ISTANBUL // POST PRODUCTION SUITE
-            </div>
-
-            <div class="flex items-center gap-3 ml-auto">
-                <button class="bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-main)] px-4 py-2 rounded-full text-xs font-bold shadow-md hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] flex items-center gap-2 transition" id="lang-toggle" onclick="toggleLanguage()">
-                    <span id="lang-flag">🌐</span>
-                    <span id="lang-label">EN</span>
-                </button>
-
-                <button class="bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-main)] px-4 py-2 rounded-full text-xs font-bold shadow-md hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] flex items-center gap-2 transition" id="theme-toggle" onclick="toggleTheme()">
-                    <span id="theme-icon">☀️</span>
-                    <span id="theme-text" data-tr="Aydınlık Mod" data-en="Light Mode">Aydınlık Mod</span>
-                </button>
-            </div>
-        </div>
-
-        <header class="text-center mb-12 pb-8 border-b border-[var(--border-color)]">
-            <!-- Studio Logo with Fallback Styling -->
-            <div class="inline-flex items-center justify-center bg-[#0d0f12] p-6 sm:p-8 rounded-2xl mb-8 shadow-2xl border border-[var(--border-color)] min-h-[120px] max-w-full">
-                <img src="abt_logo_siyahta.jpg" alt="ABT Istanbul Logo" class="max-w-[380px] w-full h-auto max-h-[110px] object-contain block" onerror="this.onerror=null; this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
-                <div id="logo-fallback" class="hidden items-center gap-4 font-black tracking-tighter">
-                    <span class="text-5xl text-white font-extrabold tracking-widest leading-none">ABT</span>
-                    <span class="text-2xl text-[#00adef] font-bold tracking-[6px] uppercase border-l-4 border-[#00adef] pl-4 ml-1">ISTANBUL</span>
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center gap-3 mb-6">
-                <div class="text-sm sm:text-base font-bold tracking-[3px] text-[var(--text-muted)] uppercase" data-tr="Görsel Deneyimler & Yaratıcı Prodüksiyon" data-en="Visual Experiences & Creative Production">
-                    Görsel Deneyimler & Yaratıcı Prodüksiyon
-                </div>
-                
-                <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-wider uppercase leading-snug max-w-5xl mx-auto px-2">
-                    <span class="c-cyan" data-tr="HIGH-END " data-en="HIGH-END ">HIGH-END </span>
-                    <span class="c-blue" data-tr="POST-PRODUCTION, " data-en="POST-PRODUCTION, ">POST-PRODUCTION, </span>
-                    <span class="c-indigo" data-tr="COLOR GRADING " data-en="COLOR GRADING ">COLOR GRADING </span>
-                    <span class="c-purple" data-tr="& " data-en="& ">& </span>
-                    <span class="c-pink" data-tr="DOLBY ATMOS® " data-en="DOLBY ATMOS® ">DOLBY ATMOS® </span>
-                    <span class="c-orange" data-tr="SOUND" data-en="SOUND">SOUND</span>
-                </h1>
-            </div>
-
-            <!-- SMPTE Color Bar Calibration Strip -->
-            <div class="color-panel-card">
-                <div class="flex justify-between items-center font-mono text-[0.72rem] text-[var(--text-muted)] tracking-wider font-bold">
-                    <span data-tr="SMPTE Sinyal & Renk Kalibrasyon Testi" data-en="SMPTE Signal & Color Calibration Scope">SMPTE Sinyal & Renk Kalibrasyon Testi</span>
-                    <span>REC.709 / DCI-P3 / REC.2020</span>
-                </div>
-                
-                <div class="color-bar-strip">
-                    <div class="cb-item cb-white" title="White (100% IRE)"></div>
-                    <div class="cb-item cb-yellow" title="Yellow (75% Color Bar)"></div>
-                    <div class="cb-item cb-cyan" title="Cyan (75% Color Bar)"></div>
-                    <div class="cb-item cb-green" title="Green (75% Color Bar)"></div>
-                    <div class="cb-item cb-magenta" title="Magenta (75% Color Bar)"></div>
-                    <div class="cb-item cb-red" title="Red (75% Color Bar)"></div>
-                    <div class="cb-item cb-blue" title="Blue (75% Color Bar)"></div>
-                    <div class="cb-item cb-black" title="Black (0% IRE)"></div>
-                    <div class="cb-item cb-gray1" title="Deep Gray (15% IRE)"></div>
-                    <div class="cb-item cb-gray2" title="Mid Gray (50% IRE)"></div>
-                    <div class="cb-item cb-gray3" title="Light Gray (75% IRE)"></div>
-                </div>
-
-                <div class="flex justify-around items-center font-mono text-[0.72rem] text-[var(--text-muted)] flex-wrap gap-2">
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-[#00ff87]"></span>
-                        <span data-tr="GAMMA 2.4 HEDEF" data-en="GAMMA 2.4 TARGET">GAMMA 2.4 HEDEF</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-[#00adef]"></span>
-                        <span>D65 WHITE POINT</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-[#a855f7]"></span>
-                        <span>ST 2084 / PQ HDR</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <section class="mb-14">
-                <h2 class="text-2xl sm:text-3xl font-black tracking-widest text-center uppercase mb-2">
-                    <span class="c-cyan" data-tr="SEÇİLMİŞ " data-en="SELECTED ">SEÇİLMİŞ </span>
-                    <span class="c-purple" data-tr="PROJELER " data-en="WORKS ">PROJELER </span>
-                    <span class="c-coral" data-tr="& REEL" data-en="& REEL">& REEL</span>
-                </h2>
-                <div class="text-center text-[var(--text-muted)] text-base font-medium mb-8" data-tr="Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri." data-en="Featured films, series, commercial and color grading projects.">
-                    Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri.
-                </div>
-
-                <!-- 6-Item Initial Project Grid Container (No Filters) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="video-grid">
-                    <div class="col-span-full text-center py-12 text-[var(--text-muted)] font-mono text-sm" data-tr="Videolar yükleniyor..." data-en="Loading projects...">
-                        Videolar yükleniyor...
-                    </div>
-                </div>
-
-                <div class="flex justify-center mt-6">
-                    <button class="bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-main)] px-8 py-3.5 rounded-xl font-bold text-sm tracking-widest uppercase shadow-lg hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] hover:text-white transition transform hover:-translate-y-0.5" id="load-more-btn" onclick="loadAllProjects()" data-tr="TÜM PROJELERİ İNCELE" data-en="EXPLORE ALL PROJECTS">
-                        TÜM PROJELERİ İNCELE
-                    </button>
-                </div>
-            </section>
-
-            <section class="bg-[var(--card-bg)] rounded-2xl p-6 sm:p-10 my-10 shadow-xl border border-[var(--border-color)]">
-                <h2 class="text-xl sm:text-2xl font-black tracking-widest text-center uppercase mb-8" data-tr="POST PRODÜKSİYON HİZMETLERİMİZ" data-en="POST PRODUCTION SERVICES">
-                    POST PRODÜKSİYON HİZMETLERİMİZ
-                </h2>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="border border-[var(--border-color)] rounded-xl p-5 bg-[var(--bg-color)]">
-                        <h3 class="text-base font-bold text-[var(--accent-color)] mb-3 pb-2 border-b border-[var(--border-color)]" data-tr="Kurgu & Montaj" data-en="Editing & Assembly">Kurgu & Montaj</h3>
-                        <ul class="space-y-2 text-xs text-[var(--text-muted)]">
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Sinema ve Dizi Offline Kurgu" data-en="Feature & Series Offline Editing">Sinema ve Dizi Offline Kurgu</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Conform ve Online Editing" data-en="Conform & Online Editing">Conform ve Online Editing</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Proje Yönetimi & Workflow" data-en="Project Management & Workflow">Proje Yönetimi & Workflow</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Multi-cam Kurgu Hizmetleri" data-en="Multi-camera Editing Services">Multi-cam Kurgu Hizmetleri</li>
-                        </ul>
-                    </div>
-
-                    <div class="border border-[var(--border-color)] rounded-xl p-5 bg-[var(--bg-color)]">
-                        <h3 class="text-base font-bold text-[var(--accent-color)] mb-3 pb-2 border-b border-[var(--border-color)]" data-tr="Renk Derecelendirme (Color)" data-en="Color Grading & Finishing">Renk Derecelendirme (Color)</h3>
-                        <ul class="space-y-2 text-xs text-[var(--text-muted)]">
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="DaVinci Resolve Studio Sistemleri" data-en="DaVinci Resolve Studio Suites">DaVinci Resolve Studio Sistemleri</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="4K DCI & HDR10 / Dolby Vision" data-en="4K DCI & HDR10 / Dolby Vision">4K DCI & HDR10 / Dolby Vision</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="SDR & HDR Master Hazırlığı" data-en="SDR & HDR Master Creation">SDR & HDR Master Hazırlığı</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Sahneler Arası Renk Uyumu" data-en="Scene Matching & Look Design">Sahneler Arası Renk Uyumu</li>
-                        </ul>
-                    </div>
-
-                    <div class="border border-[var(--border-color)] rounded-xl p-5 bg-[var(--bg-color)]">
-                        <h3 class="text-base font-bold text-[var(--accent-color)] mb-3 pb-2 border-b border-[var(--border-color)]" data-tr="Dolby Atmos® Ses Miks" data-en="Dolby Atmos® Audio Mix">Dolby Atmos® Ses Miks</h3>
-                        <ul class="space-y-2 text-xs text-[var(--text-muted)]">
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="11 + 1 (7.1.4) Immersive Audio" data-en="11 + 1 (7.1.4) Immersive Audio">11 + 1 (7.1.4) Immersive Audio</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Sinema & OTT Ses Tasarımı" data-en="Theatrical & OTT Sound Design">Sinema & OTT Ses Tasarımı</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="Foley, Dublaj & ADR Miks" data-en="Foley, Dubbing & ADR Mix">Foley, Dublaj & ADR Miks</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="EBU R128 & ITU Loudness Master" data-en="EBU R128 & ITU Loudness Master">EBU R128 & ITU Loudness Master</li>
-                        </ul>
-                    </div>
-
-                    <div class="border border-[var(--border-color)] rounded-xl p-5 bg-[var(--bg-color)]">
-                        <h3 class="text-base font-bold text-[var(--accent-color)] mb-3 pb-2 border-b border-[var(--border-color)]" data-tr="Mastering & VFX" data-en="Mastering & VFX Lab">Mastering & VFX</h3>
-                        <ul class="space-y-2 text-xs text-[var(--text-muted)]">
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="DCP & IMF Master Paketleme" data-en="DCP & IMF Master Packaging">DCP & IMF Master Paketleme</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="ProRes / DNxHR / Uncompressed QC" data-en="ProRes / DNxHR / Uncompressed QC">ProRes / DNxHR / Uncompressed QC</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="VFX Cleanup & Rig Removal" data-en="VFX Cleanup & Rig Removal">VFX Cleanup & Rig Removal</li>
-                            <li class="relative pl-3.5 before:content-['•'] before:text-[var(--accent-color)] before:absolute before:left-0 font-medium" data-tr="On-Set DIT & Data Lab" data-en="On-Set DIT & Data Lab">On-Set DIT & Data Lab</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-[var(--card-bg)] rounded-2xl p-6 sm:p-10 my-10 shadow-xl border border-[var(--border-color)]">
-                <h2 class="text-xl sm:text-2xl font-black tracking-widest text-center uppercase mb-8" data-tr="STÜDYO TEKNİK ALTYAPISI" data-en="STUDIO TECHNICAL INFRASTRUCTURE">
-                    STÜDYO TEKNİK ALTYAPISI
-                </h2>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <div class="bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-5">
-                        <div class="text-xs uppercase tracking-widest text-[var(--accent-color)] font-bold mb-2">SAN & FIBER NETWORK</div>
-                        <div class="text-sm text-[var(--text-main)] font-semibold leading-snug" data-tr="Yüksek Hızlı 10GbE / Fiber SAN RAID Depolama" data-en="High-Speed 10GbE / Fiber SAN RAID Storage">
-                            Yüksek Hızlı 10GbE / Fiber SAN RAID Depolama
-                        </div>
-                        <div class="text-xs text-[var(--text-muted)] mt-2" data-tr="Kesintisiz 4K/8K uncompressed kurgu ve paylaşımlı yüksek bant genişliği" data-en="Uninterrupted 4K/8K uncompressed playback with shared high bandwidth">
-                            Kesintisiz 4K/8K uncompressed kurgu ve paylaşımlı yüksek bant genişliği
-                        </div>
-                    </div>
-
-                    <div class="bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-5">
-                        <div class="text-xs uppercase tracking-widest text-[var(--accent-color)] font-bold mb-2">COLOR GRADING SUITE</div>
-                        <div class="text-sm text-[var(--text-main)] font-semibold leading-snug" data-tr="Sony BVM-HX310 & DaVinci Resolve Studio" data-en="Sony BVM-HX310 & DaVinci Resolve Studio">
-                            Sony BVM-HX310 & DaVinci Resolve Studio
-                        </div>
-                        <div class="text-xs text-[var(--text-muted)] mt-2" data-tr="Donanımsal kalibreli referans monitörler ve HDR10 / Dolby Vision desteği" data-en="Hardware calibrated reference monitors with HDR10 / Dolby Vision support">
-                            Donanımsal kalibreli referans monitörler ve HDR10 / Dolby Vision desteği
-                        </div>
-                    </div>
-
-                    <div class="bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-5">
-                        <div class="text-xs uppercase tracking-widest text-[var(--accent-color)] font-bold mb-2">11 + 1 DOLBY ATMOS®</div>
-                        <div class="text-sm text-[var(--text-main)] font-semibold leading-snug" data-tr="11 + 1 (7.1.4 Dolby Atmos®) Genelec SAM System" data-en="11 + 1 (7.1.4 Dolby Atmos®) Genelec SAM System">
-                            11 + 1 (7.1.4 Dolby Atmos®) Genelec SAM System
-                        </div>
-                        <div class="text-xs text-[var(--text-muted)] mt-2" data-tr="Akustik tasarımlı stüdyoda uluslararası 3D nesne tabanlı ses miksleme" data-en="International 3D object-based audio mixing in acoustically optimized room">
-                            Akustik tasarımlı stüdyoda uluslararası 3D nesne tabanlı ses miksleme
-                        </div>
-                    </div>
-
-                    <div class="bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-5">
-                        <div class="text-xs uppercase tracking-widest text-[var(--accent-color)] font-bold mb-2">DCP & MASTERING LAB</div>
-                        <div class="text-sm text-[var(--text-main)] font-semibold leading-snug" data-tr="DCI Uyumlu DCP Paketleme & IMF QC Lab" data-en="DCI Compliant DCP Packaging & IMF QC Lab">
-                            DCI Uyumlu DCP Paketleme & IMF QC Lab
-                        </div>
-                        <div class="text-xs text-[var(--text-muted)] mt-2" data-tr="KDM anahtar yönetimi, sinema ve dijital platform teslimat otomasyonu" data-en="KDM key management, theatrical cinema and streaming delivery automation">
-                            KDM anahtar yönetimi, sinema ve dijital platform teslimat otomasyonu
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-[var(--card-bg)] rounded-2xl p-6 sm:p-10 my-10 shadow-xl border border-[var(--border-color)]">
-                <h2 class="text-xl sm:text-2xl font-black tracking-widest text-center uppercase mb-6" data-tr="DİJİTAL PLATFORMLAR" data-en="DIGITAL PLATFORMS">
-                    DİJİTAL PLATFORMLAR
-                </h2>
-
-                <div class="flex flex-wrap gap-3 justify-center items-center">
-                    <!-- 1. Netflix -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-netflix"></span>
-                        <span class="text-sm font-bold tracking-wide">Netflix</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">IMF / HDR</span>
-                    </div>
-
-                    <!-- 2. Disney+ -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-disney"></span>
-                        <span class="text-sm font-bold tracking-wide">Disney+</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">Dolby Atmos®</span>
-                    </div>
-
-                    <!-- 3. Prime Video -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-prime"></span>
-                        <span class="text-sm font-bold tracking-wide">Prime Video</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">UHD 4K</span>
-                    </div>
-
-                    <!-- 4. Max -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-max"></span>
-                        <span class="text-sm font-bold tracking-wide">Max</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">DCI P3</span>
-                    </div>
-
-                    <!-- 5. Apple TV+ -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-apple"></span>
-                        <span class="text-sm font-bold tracking-wide">Apple TV+</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">Dolby Vision</span>
-                    </div>
-
-                    <!-- 6. GAIN -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-gain"></span>
-                        <span class="text-sm font-bold tracking-wide">GAİN</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">ProRes HQ</span>
-                    </div>
-
-                    <!-- 7. BluTV -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-blutv"></span>
-                        <span class="text-sm font-bold tracking-wide">BluTV</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">1080p / 4K</span>
-                    </div>
-
-                    <!-- 8. Exxen -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-exxen"></span>
-                        <span class="text-sm font-bold tracking-wide">Exxen</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">Stereo / 5.1</span>
-                    </div>
-
-                    <!-- 9. tabii -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-tabii"></span>
-                        <span class="text-sm font-bold tracking-wide">tabii</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">Rec.709</span>
-                    </div>
-
-                    <!-- 10. TOD / beIN -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-tod"></span>
-                        <span class="text-sm font-bold tracking-wide">TOD / beIN</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">Broadcast</span>
-                    </div>
-
-                    <!-- 11. TV+ -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-tvplus"></span>
-                        <span class="text-sm font-bold tracking-wide">TV+</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">EBU R128</span>
-                    </div>
-
-                    <!-- 12. Tivibu -->
-                    <div class="platform-chip">
-                        <span class="platform-dot dot-tivibu"></span>
-                        <span class="text-sm font-bold tracking-wide">Tivibu</span>
-                        <span class="text-[0.72rem] text-[var(--text-muted)] font-mono uppercase border-l border-[var(--border-color)] pl-2">HD Master</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-[var(--card-bg)] rounded-2xl p-6 sm:p-10 my-10 shadow-xl border border-[var(--border-color)]">
-                <h2 class="text-xl sm:text-2xl font-black tracking-widest text-center uppercase mb-8" data-tr="İLETİŞİM VE STÜDYO ADRESİ" data-en="CONTACT & STUDIO LOCATION">
-                    İLETİŞİM VE STÜDYO ADRESİ
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="flex flex-col justify-center space-y-5 text-sm text-[var(--text-muted)]">
-                        <div>
-                            <strong class="text-[var(--text-main)] block mb-1 text-base font-bold" data-tr="Stüdyo Adı:" data-en="Studio Name:">Stüdyo Adı:</strong>
-                            <p class="text-base font-extrabold text-[var(--accent-color)] tracking-wide">ABT ISTANBUL POST PRODUCTION</p>
-                        </div>
-                        <div>
-                            <strong class="text-[var(--text-main)] block mb-1 text-base font-bold" data-tr="Adres:" data-en="Address:">Adres:</strong>
-                            <p class="leading-relaxed">Levent Mah. Ortanca Sk. No:6, 34330 Beşiktaş / İstanbul / Türkiye</p>
-                        </div>
-                        <div>
-                            <strong class="text-[var(--text-main)] block mb-1 text-base font-bold" data-tr="E-posta & Telefon:" data-en="Email & Phone:">E-posta & Telefon:</strong>
-                            <p><a href="mailto:info@abtistanbul.com" class="text-[var(--accent-color)] hover:underline font-medium">info@abtistanbul.com</a></p>
-                            <p><a href="tel:+902122829024" class="text-[var(--text-main)] font-bold text-base hover:text-[var(--accent-color)] transition">+90 (212) 282 90 24</a></p>
-                            <p><a href="https://abtistanbul.com" target="_blank" class="text-[var(--accent-color)] hover:underline font-medium">abtistanbul.com</a></p>
-                        </div>
-                        <div>
-                            <strong class="text-[var(--text-main)] block mb-1 text-base font-bold" data-tr="Çalışma Saatleri:" data-en="Working Hours:">Çalışma Saatleri:</strong>
-                            <p data-tr="Pazartesi - Cuma: 09:00 - 19:00" data-en="Monday - Friday: 09:00 - 19:00">Pazartesi - Cuma: 09:00 - 19:00</p>
-                        </div>
-
-                        <!-- Social Links -->
-                        <div class="pt-2 flex items-center gap-4">
-                            <a href="https://vimeo.com/user32693897" target="_blank" class="bg-[var(--bg-color)] border border-[var(--border-color)] px-4 py-2 rounded-lg text-xs font-bold text-[var(--text-main)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition">
-                                VIMEO
-                            </a>
-                            <a href="https://instagram.com" target="_blank" class="bg-[var(--bg-color)] border border-[var(--border-color)] px-4 py-2 rounded-lg text-xs font-bold text-[var(--text-main)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition">
-                                INSTAGRAM
-                            </a>
-                            <a href="https://linkedin.com" target="_blank" class="bg-[var(--bg-color)] border border-[var(--border-color)] px-4 py-2 rounded-lg text-xs font-bold text-[var(--text-main)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition">
-                                LINKEDIN
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Google Maps Iframe -->
-                    <div class="rounded-xl overflow-hidden h-80 shadow-lg border border-[var(--border-color)]">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.204561842933!2d29.01185!3d41.07722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab63f62800000%3A0x1d668261358c56e2!2sLevent%2C%20Ortanca%20Sk.%20No%3A6%2C%2034330%20Be%C5%9Fikta%C5%9F%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1650000000000!5m2!1str!2str" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="text-center mt-12 pt-6 text-sm text-[var(--text-muted)] border-t border-[var(--border-color)]">
-            <p>© <span id="year"></span> ABT Istanbul Post Production. <span data-tr="Tüm Hakları Saklıdır." data-en="All Rights Reserved.">Tüm Hakları Saklıdır.</span></p>
-        </footer>
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-[#070709] py-8 text-xs font-mono text-slate-500 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <span class="font-bold text-slate-300">ABT ISTANBUL</span>
+        <span>&copy; 2026 ABT Post Production Services.</span>
+      </div>
+      <div class="flex items-center space-x-6 text-slate-400">
+        <span>Levent Mah. Ortanca Sk. No:6, 34330 Besiktas / Istanbul</span>
+        <a href="tel:+902122829024" class="hover:text-brand-cyan transition-colors">+90 (212) 282 90 24</a>
+        <a href="mailto:info@abtistanbul.com" class="hover:text-brand-cyan transition-colors">info@abtistanbul.com</a>
+      </div>
     </div>
+  </footer>
 
-    <!-- Video Modal Lightbox -->
-    <div class="modal" id="video-modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+  <!-- JAVASCRIPT -->
+  <script>
+    // 1. Live Timecode Clock
+    function updateTimecode() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const f = String(Math.floor(now.getMilliseconds() / 40)).padStart(2, '0');
+      
+      const tcElement = document.getElementById('timecodeDisplay');
+      if (tcElement) {
+        tcElement.innerText = `${h}:${m}:${s}:${f}`;
+      }
+    }
+    setInterval(updateTimecode, 40);
 
-    <script>
-        // Set dynamic copyright year
-        document.getElementById('year').textContent = new Date().getFullYear();
+    // 2. Bilingual Toggle (TR / EN)
+    let currentLang = 'TR';
+    function toggleLanguage() {
+      currentLang = currentLang === 'TR' ? 'EN' : 'TR';
+      document.getElementById('langLabel').innerText = currentLang;
 
-        // Timecode Ticker Simulation (~24 fps rate)
-        function updateTimecode() {
-            const now = new Date();
-            const hrs = String(now.getHours()).padStart(2, '0');
-            const mins = String(now.getMinutes()).padStart(2, '0');
-            const secs = String(now.getSeconds()).padStart(2, '0');
-            const frames = String(Math.floor((now.getMilliseconds() / 1000) * 24)).padStart(2, '0');
-            const tcElem = document.getElementById('live-timecode');
-            if (tcElem) {
-                tcElem.textContent = `${hrs}:${mins}:${secs}:${frames}`;
-            }
-        }
-        setInterval(updateTimecode, 40);
+      document.querySelectorAll('[data-tr]').forEach(el => {
+        el.innerText = currentLang === 'TR' ? el.getAttribute('data-tr') : el.getAttribute('data-en');
+      });
+    }
 
-        // Theme Switcher (Dark / Light)
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            
-            const themeIcon = document.getElementById('theme-icon');
-            if (themeIcon) {
-                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            }
+    // 3. Theme Toggle
+    function toggleTheme() {
+      const htmlEl = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        icon.classList.remove('fa-sun', 'text-amber-400');
+        icon.classList.add('fa-moon', 'text-slate-700');
+        document.body.style.backgroundColor = '#f8fafc';
+        document.body.style.color = '#0f172a';
+      } else {
+        htmlEl.classList.add('dark');
+        icon.classList.remove('fa-moon', 'text-slate-700');
+        icon.classList.add('fa-sun', 'text-amber-400');
+        document.body.style.backgroundColor = '#0A0A0C';
+        document.body.style.color = '#E2E8F0';
+      }
+    }
 
-            updateTextTranslations();
-        }
+    // 4. Lightbox Modal Player
+    function openLightbox(vimeoId) {
+      const modal = document.getElementById('videoLightbox');
+      const iframe = document.getElementById('lightboxIframe');
+      iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
 
-        // Language Switcher (TR / EN)
-        let currentLang = 'tr';
+    function closeLightbox() {
+      const modal = document.getElementById('videoLightbox');
+      const iframe = document.getElementById('lightboxIframe');
+      iframe.src = '';
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'tr' ? 'en' : 'tr';
-            document.documentElement.setAttribute('data-lang', currentLang);
-
-            const langLabel = document.getElementById('lang-label');
-            if (langLabel) {
-                langLabel.textContent = currentLang === 'tr' ? 'EN' : 'TR';
-            }
-
-            updateTextTranslations();
-        }
-
-        function updateTextTranslations() {
-            const elements = document.querySelectorAll('[data-tr]');
-            elements.forEach(el => {
-                const text = el.getAttribute(`data-${currentLang}`);
-                if (text) {
-                    el.textContent = text;
-                }
-            });
-        }
-
-        // Vimeo User Showcase Integration
-        const VIMEO_USER_ID = '32693897';
-        let allVideos = [];
-        let displayedCount = 6;
-
-        async function fetchVimeoVideos() {
-            const grid = document.getElementById('video-grid');
-            try {
-                const response = await fetch(`https://vimeo.com/api/v2/${VIMEO_USER_ID}/videos.json`);
-                if (!response.ok) throw new Error('Network error loading projects');
-                allVideos = await response.json();
-                renderVideos();
-            } catch (error) {
-                console.error('Vimeo API Error:', error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-rose-500 font-mono text-sm">
-                        ${currentLang === 'tr' ? 'Videolar yüklenirken bir sorun oluştu. Lütfen bağlantınızı kontrol ediniz.' : 'An error occurred while loading projects. Please verify your connection.'}
-                    </div>
-                `;
-            }
-        }
-
-        function renderVideos() {
-            const grid = document.getElementById('video-grid');
-            grid.innerHTML = '';
-
-            const pageVideos = allVideos.slice(0, displayedCount);
-
-            pageVideos.forEach(video => {
-                const card = document.createElement('div');
-                card.className = 'video-card';
-                card.onclick = () => openModal(video.id);
-
-                const thumb = video.thumbnail_large || video.thumbnail_medium;
-
-                card.innerHTML = `
-                    <div class="thumb-container">
-                        <img src="${thumb}" alt="${video.title}" loading="lazy">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="p-4">
-                        <div class="text-sm font-semibold text-[var(--text-main)] line-clamp-2 leading-snug">${video.title}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            const loadMoreBtn = document.getElementById('load-more-btn');
-            if (loadMoreBtn) {
-                if (displayedCount >= allVideos.length) {
-                    loadMoreBtn.style.display = 'none';
-                } else {
-                    loadMoreBtn.style.display = 'inline-block';
-                }
-            }
-        }
-
-        function loadAllProjects() {
-            displayedCount = allVideos.length;
-            renderVideos();
-        }
-
-        // Lightbox Modal Handlers
-        function openModal(videoId) {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('modal-iframe');
-            iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&autopause=0`;
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('modal-iframe');
-            iframe.src = '';
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('video-modal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
-        // Initialize on load
-        window.onload = function() {
-            fetchVimeoVideos();
-        };
-    </script>
+    function loadMoreWorks() {
+      window.open('https://vimeo.com/abtistanbul', '_blank');
+    }
+  </script>
 </body>
 </html>
