@@ -1,24 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABT Istanbul | Selected Works & Post Production Services</title>
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #1a1d20;
-            --text-muted: #6c757d;
-            --border-color: #eaeaea;
-            --accent-color: #0088cc;
-            --shadow: 0 4px 15px rgba(0,0,0,0.06);
-            --shadow-hover: 0 12px 25px rgba(0,0,0,0.12);
-            --logo-bg: #0f1115;
-            --bg-watermark-opacity: 0.12;
-        }
-
-        [data-theme="dark"] {
             --bg-color: #0f1115;
             --card-bg: #181b22;
             --text-main: #ffffff;
@@ -28,7 +15,22 @@
             --shadow: 0 10px 20px rgba(0,0,0,0.4);
             --shadow-hover: 0 15px 30px rgba(0,0,0,0.6);
             --logo-bg: #0f1115;
-            --bg-watermark-opacity: 0.18;
+            --overlay-opacity: 0.12;
+            --flare-opacity: 0.25;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #1a1d20;
+            --text-muted: #6c757d;
+            --border-color: #eaeaea;
+            --accent-color: #0088cc;
+            --shadow: 0 4px 15px rgba(0,0,0,0.06);
+            --shadow-hover: 0 12px 25px rgba(0,0,0,0.12);
+            --logo-bg: #0f1115;
+            --overlay-opacity: 0.08;
+            --flare-opacity: 0.12;
         }
 
         * {
@@ -44,10 +46,11 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             position: relative;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* RANDOM FLOATING WATERMARKS (LOGOS & SERVICE BADGES) */
-        .bg-watermarks {
+        /* 1 & 2. LENS FLARES & GRAIN BACKGROUND */
+        .ambient-flares {
             position: fixed;
             top: 0;
             left: 0;
@@ -58,39 +61,133 @@
             overflow: hidden;
         }
 
-        .watermark-item {
+        .flare {
             position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: var(--flare-opacity);
+            animation: floatFlare 18s ease-in-out infinite alternate;
+        }
+
+        .flare-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0,173,239,0.8) 0%, rgba(0,0,0,0) 70%);
+            top: -100px;
+            left: -100px;
+        }
+
+        .flare-2 {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(138,43,226,0.6) 0%, rgba(0,0,0,0) 70%);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatFlare {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.15); }
+            100% { transform: translate(-40px, -30px) scale(0.9); }
+        }
+
+        /* 4. VIEWFINDER GRID & HUD OVERLAY */
+        .cinematic-hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            padding: 24px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            letter-spacing: 2px;
+            opacity: var(--overlay-opacity);
+        }
+
+        .hud-top, .hud-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .hud-rec {
+            color: #ff3b30;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            opacity: var(--bg-watermark-opacity);
-            animation: floatRandom 18s ease-in-out infinite alternate;
         }
 
-        .watermark-item svg {
-            width: 48px;
-            height: 48px;
-            fill: var(--text-main);
+        .rec-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff3b30;
+            border-radius: 50%;
+            animation: blink 1s infinite;
         }
 
-        .watermark-item span {
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            color: var(--text-main);
-            text-align: center;
-            white-space: nowrap;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
         }
 
-        @keyframes floatRandom {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -40px) rotate(3deg); }
-            66% { transform: translate(-25px, 20px) rotate(-3deg); }
-            100% { transform: translate(15px, -30px) rotate(1deg); }
+        /* 1. TIMECODE DISPLAY */
+        .timecode-val {
+            font-size: 1.1rem;
+            color: var(--accent-color);
         }
 
+        .viewfinder-frame {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px dashed rgba(255,255,255,0.15);
+            pointer-events: none;
+        }
+
+        .corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--text-main);
+            border-style: solid;
+        }
+
+        .tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+        .bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+        .br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        /* 3. AUDIO WAVEFORM BARS */
+        .waveform-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 20px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+            animation: waveAnim 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveAnim {
+            0% { height: 15%; }
+            100% { height: 100%; }
+        }
+
+        /* CONTAINER & LAYOUT */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -164,7 +261,6 @@
             font-weight: 700;
         }
 
-        /* Video Grid */
         .section-title {
             font-size: 1.5rem;
             letter-spacing: 2px;
@@ -174,6 +270,7 @@
             text-transform: uppercase;
         }
 
+        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -329,9 +426,6 @@
             color: var(--accent-color);
             margin-bottom: 15px;
             letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
@@ -354,6 +448,53 @@
             position: absolute;
             left: 0;
             font-weight: bold;
+        }
+
+        /* 7. STUDIO TECH SPECS SECTION */
+        .tech-specs-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tech-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .tech-card-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tech-card-desc {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .tech-card-sub {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 6px;
         }
 
         /* Contact Section */
@@ -487,62 +628,41 @@
 </head>
 <body>
 
-    <!-- RANDOM FLOATING WATERMARKS -->
-    <div class="bg-watermarks" id="watermarks-container">
-        <!-- Avid Media Composer -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><path d="M12 25 L50 5 L88 25 L88 50 L50 70 L12 50 Z M50 20 L28 32 L50 44 L72 32 Z M28 42 L28 58 L50 70 L50 54 Z M72 42 L50 54 L50 70 L72 58 Z"/></svg>
-            <span>MEDIA COMPOSER</span>
+    <!-- AMBIENT LENS FLARES -->
+    <div class="ambient-flares">
+        <div class="flare flare-1"></div>
+        <div class="flare flare-2"></div>
+    </div>
+
+    <!-- CAMERA VIEWFINDER / TIMECODE / HUD -->
+    <div class="cinematic-hud">
+        <div class="hud-top">
+            <span class="hud-rec"><span class="rec-dot"></span> REC</span>
+            <span>24.00 FPS</span>
+            <span>RAW / DCI 4K</span>
         </div>
-        <!-- DaVinci Resolve -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><circle cx="50" cy="30" r="18"/><circle cx="32" cy="62" r="18"/><circle cx="68" cy="62" r="18"/></svg>
-            <span>DAVINCI RESOLVE</span>
+        
+        <div class="viewfinder-frame">
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
         </div>
-        <!-- Foundry Nuke -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><path d="M50 5 L88 27 L88 73 L50 95 L12 73 L12 27 Z M50 20 L27 33 L27 67 L50 80 L73 67 L73 33 Z"/></svg>
-            <span>FOUNDRY NUKE</span>
-        </div>
-        <!-- Pro Tools -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" rx="18"/><path d="M30 30 H55 C65 30 65 48 55 48 H42 V70 H30 V30 Z" fill="var(--bg-color)"/><path d="M60 30 H72 V70 H60 Z" fill="var(--bg-color)"/></svg>
-            <span>PRO TOOLS</span>
-        </div>
-        <!-- Autodesk Flame -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><path d="M20 80 L50 15 L80 80 L55 80 L50 45 L40 80 Z M30 80 L50 35 L65 80 Z"/></svg>
-            <span>AUTODESK FLAME</span>
-        </div>
-        <!-- Adobe CC -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><path d="M25 65 C15 65 10 55 10 45 C10 32 22 25 35 25 C45 25 50 32 55 38 C60 30 68 25 78 25 C90 25 95 35 95 48 C95 60 85 65 75 65 Z"/></svg>
-            <span>ADOBE SUITE</span>
-        </div>
-        <!-- easyDCP -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" rx="10"/><path d="M35 30 H50 C65 30 65 70 50 70 H35 V30 Z" fill="var(--bg-color)"/></svg>
-            <span>EASYDCP</span>
-        </div>
-        <!-- Gigantic Style Service Badge 1: Picture -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14l-4.5-6-3.5 4.5-2.5-3z"/></svg>
-            <span>PICTURE EDITING</span>
-        </div>
-        <!-- Gigantic Style Service Badge 2: Sound -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-            <span>AUDIO & SOUND</span>
-        </div>
-        <!-- Gigantic Style Service Badge 3: VFX -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9L2 16l10 5 10-5-10-5z"/></svg>
-            <span>VISUAL EFFECTS</span>
-        </div>
-        <!-- Gigantic Style Service Badge 4: Color -->
-        <div class="watermark-item">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-            <span>COLOR GRADING</span>
+
+        <div class="hud-bottom">
+            <span>TCG</span>
+            <span class="timecode-val" id="live-timecode">01:00:00:00</span>
+            
+            <!-- AUDIO WAVEFORM BARS -->
+            <div class="waveform-container" id="waveform">
+                <div class="wave-bar" style="animation-duration: 0.8s;"></div>
+                <div class="wave-bar" style="animation-duration: 1.1s;"></div>
+                <div class="wave-bar" style="animation-duration: 0.6s;"></div>
+                <div class="wave-bar" style="animation-duration: 1.3s;"></div>
+                <div class="wave-bar" style="animation-duration: 0.9s;"></div>
+            </div>
+
+            <span>ABT-STUDIO</span>
         </div>
     </div>
 
@@ -550,7 +670,7 @@
         <!-- Top Bar / Theme Switcher -->
         <div class="top-bar">
             <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
-                <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+                <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
             </button>
         </div>
 
@@ -562,7 +682,7 @@
             <p class="sub-title">SELECTED WORKS & SERVICES</p>
         </header>
 
-        <!-- Video Portfolio Grid -->
+        <!-- Selected Works Grid -->
         <h2 class="section-title">SELECTED WORKS</h2>
         <div id="video-grid" class="video-grid">
             <div class="loading">Loading videos...</div>
@@ -576,12 +696,11 @@
             <button class="btn" id="show-all-btn" onclick="showAllVideos()">Show All</button>
         </div>
 
-        <!-- SERVICES SECTION -->
+        <!-- Post Production Services -->
         <div class="services-section">
             <h2 class="section-title">POST PRODUCTION SERVICES</h2>
             <div class="services-grid">
                 
-                <!-- Editorial & Picture -->
                 <div class="service-card">
                     <h3>EDITORIAL & PICTURE</h3>
                     <ul>
@@ -593,7 +712,6 @@
                     </ul>
                 </div>
 
-                <!-- Color Grading -->
                 <div class="service-card">
                     <h3>COLOR GRADING</h3>
                     <ul>
@@ -604,7 +722,6 @@
                     </ul>
                 </div>
 
-                <!-- Audio & Sound -->
                 <div class="service-card">
                     <h3>AUDIO & SOUND</h3>
                     <ul>
@@ -616,7 +733,6 @@
                     </ul>
                 </div>
 
-                <!-- Visual Effects -->
                 <div class="service-card">
                     <h3>VISUAL EFFECTS (VFX)</h3>
                     <ul>
@@ -628,7 +744,6 @@
                     </ul>
                 </div>
 
-                <!-- Delivery & Data Management -->
                 <div class="service-card">
                     <h3>DELIVERY & DATA</h3>
                     <ul>
@@ -640,7 +755,6 @@
                     </ul>
                 </div>
 
-                <!-- Studio Services -->
                 <div class="service-card">
                     <h3>STUDIO SERVICES</h3>
                     <ul>
@@ -654,7 +768,34 @@
             </div>
         </div>
 
-        <!-- Contact & Location -->
+        <!-- STUDIO TECH SPECS SECTION -->
+        <div class="tech-specs-section">
+            <h2 class="section-title">STUDIO TECHNICAL INFRASTRUCTURE</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-card-title">COLOR GRADING</div>
+                    <div class="tech-card-desc">4K HDR Reference Monitors</div>
+                    <div class="tech-card-sub">DaVinci Resolve Studio & Flame Suites</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card-title">AUDIO SUITES</div>
+                    <div class="tech-card-desc">Dolby Atmos Certified Stage</div>
+                    <div class="tech-card-sub">Pro Tools Ultimate HDX Systems</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card-title">DATA NETWORK</div>
+                    <div class="tech-card-desc">10GbE High-Speed Network</div>
+                    <div class="tech-card-sub">Centralized SAN Storage System</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card-title">ARCHIVE & MASTERING</div>
+                    <div class="tech-card-desc">LTO-8 Archival & easyDCP</div>
+                    <div class="tech-card-sub">Encrypted DCI DCP Mastering</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location & Contact -->
         <div class="contact-section">
             <h2 class="section-title">LOCATION & CONTACT</h2>
             <div class="contact-grid">
@@ -718,20 +859,26 @@
             document.getElementById('theme-text').innerText = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
         }
 
-        // Random Positioning for Watermarks
-        function randomizeWatermarks() {
-            const items = document.querySelectorAll('.watermark-item');
-            items.forEach((item, index) => {
-                const randomTop = Math.floor(Math.random() * 80) + 5; // 5% - 85%
-                const randomLeft = Math.floor(Math.random() * 85) + 5; // 5% - 90%
-                const randomDelay = (index * 1.2).toFixed(1);
-                const randomDuration = (14 + Math.random() * 10).toFixed(1);
+        // Live 24 FPS Timecode Counter
+        function startLiveTimecode() {
+            let hours = 1, minutes = 14, seconds = 22, frames = 0;
+            const timecodeEl = document.getElementById('live-timecode');
 
-                item.style.top = `${randomTop}%`;
-                item.style.left = `${randomLeft}%`;
-                item.style.animationDelay = `${randomDelay}s`;
-                item.style.animationDuration = `${randomDuration}s`;
-            });
+            setInterval(() => {
+                frames++;
+                if (frames >= 24) { frames = 0; seconds++; }
+                if (seconds >= 60) { seconds = 0; minutes++; }
+                if (minutes >= 60) { minutes = 0; hours++; }
+
+                const h = String(hours).padStart(2, '0');
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                const f = String(frames).padStart(2, '0');
+
+                if (timecodeEl) {
+                    timecodeEl.innerText = `${h}:${m}:${s}:${f}`;
+                }
+            }, 1000 / 24);
         }
 
         async function fetchVimeoVideos() {
@@ -848,7 +995,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            randomizeWatermarks();
+            startLiveTimecode();
             fetchVimeoVideos();
         });
     </script>
