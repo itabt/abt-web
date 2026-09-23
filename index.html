@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABT İstanbul | Selected Works</title>
+    <title>ABT Istanbul | Selected Works & Post Production Services</title>
     <style>
         :root {
             --bg-color: #f8f9fa;
@@ -15,7 +15,7 @@
             --shadow: 0 4px 15px rgba(0,0,0,0.06);
             --shadow-hover: 0 12px 25px rgba(0,0,0,0.12);
             --logo-bg: #0f1115;
-            --bg-watermark-opacity: 0.08;
+            --bg-watermark-opacity: 0.12;
         }
 
         [data-theme="dark"] {
@@ -28,7 +28,7 @@
             --shadow: 0 10px 20px rgba(0,0,0,0.4);
             --shadow-hover: 0 15px 30px rgba(0,0,0,0.6);
             --logo-bg: #0f1115;
-            --bg-watermark-opacity: 0.12;
+            --bg-watermark-opacity: 0.18;
         }
 
         * {
@@ -46,68 +46,49 @@
             overflow-x: hidden;
         }
 
-        /* SAĞ VE SOL SILIK PROGRAM LOGOLARI (WATERMARKS) */
+        /* RANDOM FLOATING WATERMARKS (LOGOS & SERVICE BADGES) */
         .bg-watermarks {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 60px 30px;
+            overflow: hidden;
         }
 
-        .watermark-column {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            width: 140px;
-            opacity: var(--bg-watermark-opacity);
-            filter: grayscale(100%);
-        }
-
-        .software-item {
+        .watermark-item {
+            position: absolute;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            animation: float 6s ease-in-out infinite alternate;
+            opacity: var(--bg-watermark-opacity);
+            animation: floatRandom 18s ease-in-out infinite alternate;
         }
 
-        .software-item svg {
+        .watermark-item svg {
             width: 48px;
             height: 48px;
             fill: var(--text-main);
         }
 
-        .software-item span {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+        .watermark-item span {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             color: var(--text-main);
             text-align: center;
             white-space: nowrap;
         }
 
-        .watermark-column .software-item:nth-child(2) { animation-delay: 1.5s; }
-        .watermark-column .software-item:nth-child(3) { animation-delay: 3s; }
-        .watermark-column .software-item:nth-child(4) { animation-delay: 4.5s; }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-12px); }
-        }
-
-        /* Ekran genişliği 1350px altına düştüğünde içerikle çakışmaması için gizle */
-        @media (max-width: 1350px) {
-            .bg-watermarks {
-                display: none;
-            }
+        @keyframes floatRandom {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -40px) rotate(3deg); }
+            66% { transform: translate(-25px, 20px) rotate(-3deg); }
+            100% { transform: translate(15px, -30px) rotate(1deg); }
         }
 
         .container {
@@ -183,7 +164,16 @@
             font-weight: 700;
         }
 
-        /* Video Izgarası */
+        /* Video Grid */
+        .section-title {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: var(--text-main);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -207,7 +197,7 @@
 
         .thumb-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             background-color: #000;
             overflow: hidden;
@@ -270,7 +260,7 @@
             line-height: 1.4;
         }
 
-        /* Pagination & Buttons */
+        /* Pagination Controls */
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -309,7 +299,64 @@
             font-weight: 500;
         }
 
-        /* İletişim ve Harita Alanı */
+        /* SERVICES SECTION */
+        .services-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            background: var(--bg-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card ul li {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .service-card ul li::before {
+            content: "•";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
         .contact-section {
             background: var(--card-bg);
             border-radius: 16px;
@@ -317,14 +364,6 @@
             margin-top: 40px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
-        }
-
-        .contact-section h2 {
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            color: var(--text-main);
-            text-align: center;
         }
 
         .contact-grid {
@@ -389,7 +428,7 @@
             color: var(--text-muted);
         }
 
-        /* Lightbox Modal */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -448,54 +487,62 @@
 </head>
 <body>
 
-    <!-- ARKA PLAN ÖZEL PROGRAM LOGOLARI VE İSİMLERİ -->
-    <div class="bg-watermarks">
-        <!-- SOL SÜTUN -->
-        <div class="watermark-column">
-            <!-- Avid Media Composer -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.8l6.5 3.25L12 11.3 5.5 8.05 12 4.8zM4 9.3l7 3.5v6.4l-7-3.5V9.3zm16 6.4l-7 3.5v-6.4l7-3.5v6.4z"/></svg>
-                <span>AVID MEDIA COMPOSER</span>
-            </div>
-            <!-- Nuke -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z"/></svg>
-                <span>FOUNDRY NUKE</span>
-            </div>
-            <!-- Autodesk Flame -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M13.5 0.67c0 0-4.5 4.52-4.5 8.53 0 2.48 2.02 4.5 4.5 4.5s4.5-2.02 4.5-4.5c0-4.01-4.5-8.53-4.5-8.53zM12 22c-4.41 0-8-3.59-8-8 0-3.03 1.71-5.65 4.22-6.95C7.45 8.5 7 10.19 7 12c0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.81-0.45-3.5-1.22-4.95C18.29 8.35 20 10.97 20 14c0 4.41-3.59 8-8 8z"/></svg>
-                <span>AUTODESK FLAME</span>
-            </div>
-            <!-- Pro Tools -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                <span>PRO TOOLS</span>
-            </div>
+    <!-- RANDOM FLOATING WATERMARKS -->
+    <div class="bg-watermarks" id="watermarks-container">
+        <!-- Avid Media Composer -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><path d="M12 25 L50 5 L88 25 L88 50 L50 70 L12 50 Z M50 20 L28 32 L50 44 L72 32 Z M28 42 L28 58 L50 70 L50 54 Z M72 42 L50 54 L50 70 L72 58 Z"/></svg>
+            <span>MEDIA COMPOSER</span>
         </div>
-        
-        <!-- SAĞ SÜTUN -->
-        <div class="watermark-column">
-            <!-- DaVinci Resolve -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-3-10a3 3 0 1 0 3-3 3 3 0 0 0-3 3zm6 4a3 3 0 1 0 3-3 3 3 0 0 0-3 3z"/></svg>
-                <span>DAVINCI RESOLVE</span>
-            </div>
-            <!-- Adobe Creative Cloud -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7.8 12.3L10.3 13H7.7l-.9 2.3H5.3l3.3-8.3h2.1l3.3 8.3h-1.8zm6.5 0h-4.3V8.7h4.3v1.5h-2.7v1.3h2.4v1.4h-2.4v1.5h2.7v1.4zM9.7 11.5L8.9 9.3l-.8 2.2h1.6z"/></svg>
-                <span>ADOBE CREATIVE</span>
-            </div>
-            <!-- easyDCP -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-2 10h-3v3h-2v-3H8v-2h3V9h2v3h3v2z"/></svg>
-                <span>EASYDCP</span>
-            </div>
-            <!-- Production Camera / Cinema -->
-            <div class="software-item">
-                <svg viewBox="0 0 24 24"><path d="M18 10.48V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4.48l4 3.98v-11l-4 3.98z"/></svg>
-                <span>POST PRODUCTION</span>
-            </div>
+        <!-- DaVinci Resolve -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="30" r="18"/><circle cx="32" cy="62" r="18"/><circle cx="68" cy="62" r="18"/></svg>
+            <span>DAVINCI RESOLVE</span>
+        </div>
+        <!-- Foundry Nuke -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><path d="M50 5 L88 27 L88 73 L50 95 L12 73 L12 27 Z M50 20 L27 33 L27 67 L50 80 L73 67 L73 33 Z"/></svg>
+            <span>FOUNDRY NUKE</span>
+        </div>
+        <!-- Pro Tools -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" rx="18"/><path d="M30 30 H55 C65 30 65 48 55 48 H42 V70 H30 V30 Z" fill="var(--bg-color)"/><path d="M60 30 H72 V70 H60 Z" fill="var(--bg-color)"/></svg>
+            <span>PRO TOOLS</span>
+        </div>
+        <!-- Autodesk Flame -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><path d="M20 80 L50 15 L80 80 L55 80 L50 45 L40 80 Z M30 80 L50 35 L65 80 Z"/></svg>
+            <span>AUTODESK FLAME</span>
+        </div>
+        <!-- Adobe CC -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><path d="M25 65 C15 65 10 55 10 45 C10 32 22 25 35 25 C45 25 50 32 55 38 C60 30 68 25 78 25 C90 25 95 35 95 48 C95 60 85 65 75 65 Z"/></svg>
+            <span>ADOBE SUITE</span>
+        </div>
+        <!-- easyDCP -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" rx="10"/><path d="M35 30 H50 C65 30 65 70 50 70 H35 V30 Z" fill="var(--bg-color)"/></svg>
+            <span>EASYDCP</span>
+        </div>
+        <!-- Gigantic Style Service Badge 1: Picture -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14l-4.5-6-3.5 4.5-2.5-3z"/></svg>
+            <span>PICTURE EDITING</span>
+        </div>
+        <!-- Gigantic Style Service Badge 2: Sound -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>AUDIO & SOUND</span>
+        </div>
+        <!-- Gigantic Style Service Badge 3: VFX -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9L2 16l10 5 10-5-10-5z"/></svg>
+            <span>VISUAL EFFECTS</span>
+        </div>
+        <!-- Gigantic Style Service Badge 4: Color -->
+        <div class="watermark-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+            <span>COLOR GRADING</span>
         </div>
     </div>
 
@@ -503,7 +550,7 @@
         <!-- Top Bar / Theme Switcher -->
         <div class="top-bar">
             <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
-                <span id="theme-icon">🌙</span> <span id="theme-text">Koyu Mod</span>
+                <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
             </button>
         </div>
 
@@ -512,45 +559,124 @@
                 <img src="abt_logo_siyahta.jpg" alt="abt|istanbul" class="site-logo">
             </div>
             <div class="slogan">Visual Experiences & Creative Production</div>
-            <p class="sub-title">SELECTED WORKS</p>
+            <p class="sub-title">SELECTED WORKS & SERVICES</p>
         </header>
 
-        <!-- Video Izgarası -->
+        <!-- Video Portfolio Grid -->
+        <h2 class="section-title">SELECTED WORKS</h2>
         <div id="video-grid" class="video-grid">
-            <div class="loading">Videolar yükleniyor...</div>
+            <div class="loading">Loading videos...</div>
         </div>
 
-        <!-- Sayfalama Kontrolleri -->
+        <!-- Pagination Controls -->
         <div class="pagination-container" id="pagination-controls" style="display: none;">
-            <button class="btn" id="prev-btn" onclick="changePage(-1)">Önceki</button>
-            <span class="page-info" id="page-info">Sayfa 1</span>
-            <button class="btn" id="next-btn" onclick="changePage(1)">Sonraki</button>
-            <button class="btn" id="show-all-btn" onclick="showAllVideos()">Tümünü Göster</button>
+            <button class="btn" id="prev-btn" onclick="changePage(-1)">Previous</button>
+            <span class="page-info" id="page-info">Page 1</span>
+            <button class="btn" id="next-btn" onclick="changePage(1)">Next</button>
+            <button class="btn" id="show-all-btn" onclick="showAllVideos()">Show All</button>
         </div>
 
-        <!-- İletişim & Harita -->
+        <!-- SERVICES SECTION -->
+        <div class="services-section">
+            <h2 class="section-title">POST PRODUCTION SERVICES</h2>
+            <div class="services-grid">
+                
+                <!-- Editorial & Picture -->
+                <div class="service-card">
+                    <h3>EDITORIAL & PICTURE</h3>
+                    <ul>
+                        <li>Picture Editorial (Offline / Online)</li>
+                        <li>Digital Intermediary / Conform</li>
+                        <li>Dailies Processing</li>
+                        <li>Titles / Opticals / Credits</li>
+                        <li>Trailer Services</li>
+                    </ul>
+                </div>
+
+                <!-- Color Grading -->
+                <div class="service-card">
+                    <h3>COLOR GRADING</h3>
+                    <ul>
+                        <li>Color Correction (P3, HDR, SDR)</li>
+                        <li>Feature Film & Series Finishing</li>
+                        <li>Commercial Color Mastering</li>
+                        <li>Look Development & DIT Workflow</li>
+                    </ul>
+                </div>
+
+                <!-- Audio & Sound -->
+                <div class="service-card">
+                    <h3>AUDIO & SOUND</h3>
+                    <ul>
+                        <li>ADR Recording</li>
+                        <li>Dialogue Editing</li>
+                        <li>Mixing (Surround / Stereo)</li>
+                        <li>Foley & Sound Design</li>
+                        <li>Music Oversight & Supervision</li>
+                    </ul>
+                </div>
+
+                <!-- Visual Effects -->
+                <div class="service-card">
+                    <h3>VISUAL EFFECTS (VFX)</h3>
+                    <ul>
+                        <li>VFX Pulls & Pipeline</li>
+                        <li>2D & 3D Visual Effects</li>
+                        <li>CGI Integration</li>
+                        <li>Rotoscoping & Compositing</li>
+                        <li>Motion Graphics</li>
+                    </ul>
+                </div>
+
+                <!-- Delivery & Data Management -->
+                <div class="service-card">
+                    <h3>DELIVERY & DATA</h3>
+                    <ul>
+                        <li>Mastering</li>
+                        <li>DCP Creation (Encrypted / Unencrypted)</li>
+                        <li>High-Speed Data Transfers</li>
+                        <li>Secure Storage & Post Supervision</li>
+                        <li>LTO Archival Services</li>
+                    </ul>
+                </div>
+
+                <!-- Studio Services -->
+                <div class="service-card">
+                    <h3>STUDIO SERVICES</h3>
+                    <ul>
+                        <li>Post Production Suites Rental</li>
+                        <li>Color Grading Theaters</li>
+                        <li>Audio ADR & Foley Booths</li>
+                        <li>Client Review Lounges</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Contact & Location -->
         <div class="contact-section">
-            <h2>İLETİŞİM & KONUM</h2>
+            <h2 class="section-title">LOCATION & CONTACT</h2>
             <div class="contact-grid">
                 <div class="contact-info">
                     <div>
-                        <strong>Adres:</strong>
+                        <strong>Address:</strong>
                         abt istanbul<br>
                         Levent Mah., Ortanca Sk. No:6,<br>
-                        34330 Beşiktaş / İstanbul
+                        34330 Besiktas / Istanbul / Turkey
                     </div>
                     <div>
-                        <strong>Santral:</strong>
+                        <strong>Phone:</strong>
                         <a href="tel:+902122829024">+90 212 282 90 24</a>
                     </div>
                     <div>
-                        <strong>E-Posta:</strong>
+                        <strong>Email:</strong>
                         <a href="mailto:it@abtistanbul.com">it@abtistanbul.com</a>
                     </div>
                 </div>
                 <div class="map-container">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1503.8239013098528!2d29.015262!3d41.0817851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab66eca2ccfef%3A0xf13a6040e1d9ec3d!2sAbt%20%C4%B0stanbul!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1503.8239013098528!2d29.015262!3d41.0817851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab66eca2ccfef%3A0xf13a6040e1d9ec3d!2sAbt%20%C4%B0stanbul!5e0!3m2!1sen!2str!4v1710000000000!5m2!1sen!2str" 
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade">
@@ -560,11 +686,11 @@
         </div>
 
         <footer>
-            <p>&copy; 2026 ABT İstanbul. Tüm hakları saklıdır.</p>
+            <p>&copy; 2026 ABT Istanbul. All rights reserved.</p>
         </footer>
     </div>
 
-    <!-- Video Pop-up Modal -->
+    <!-- Video Modal -->
     <div class="modal" id="video-modal" onclick="closeModal(event)">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal(event)">&times;</span>
@@ -589,7 +715,23 @@
             
             html.setAttribute('data-theme', newTheme);
             document.getElementById('theme-icon').innerText = newTheme === 'light' ? '🌙' : '☀️';
-            document.getElementById('theme-text').innerText = newTheme === 'light' ? 'Koyu Mod' : 'Açık Mod';
+            document.getElementById('theme-text').innerText = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
+        }
+
+        // Random Positioning for Watermarks
+        function randomizeWatermarks() {
+            const items = document.querySelectorAll('.watermark-item');
+            items.forEach((item, index) => {
+                const randomTop = Math.floor(Math.random() * 80) + 5; // 5% - 85%
+                const randomLeft = Math.floor(Math.random() * 85) + 5; // 5% - 90%
+                const randomDelay = (index * 1.2).toFixed(1);
+                const randomDuration = (14 + Math.random() * 10).toFixed(1);
+
+                item.style.top = `${randomTop}%`;
+                item.style.left = `${randomLeft}%`;
+                item.style.animationDelay = `${randomDelay}s`;
+                item.style.animationDuration = `${randomDuration}s`;
+            });
         }
 
         async function fetchVimeoVideos() {
@@ -599,7 +741,7 @@
                 let videos = await response.json();
 
                 if (!Array.isArray(videos) || videos.length === 0) {
-                    grid.innerHTML = '<div class="loading">Henüz video bulunamadı.</div>';
+                    grid.innerHTML = '<div class="loading">No videos found.</div>';
                     return;
                 }
 
@@ -609,8 +751,8 @@
                 document.getElementById('pagination-controls').style.display = 'flex';
                 renderPage();
             } catch (error) {
-                console.error('Hata:', error);
-                grid.innerHTML = '<div class="loading">Videolar yüklenirken bir sorun oluştu.</div>';
+                console.error('Error:', error);
+                grid.innerHTML = '<div class="loading">Error loading videos from Vimeo.</div>';
             }
         }
 
@@ -658,15 +800,15 @@
             if (isShowingAll) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
-                pageInfo.innerText = `Toplam ${allVideos.length} Video Gösteriliyor`;
-                showAllBtn.innerText = 'Sayfalı Göster';
+                pageInfo.innerText = `Showing all ${allVideos.length} videos`;
+                showAllBtn.innerText = 'Show Paginated';
             } else {
                 prevBtn.style.display = 'inline-block';
                 nextBtn.style.display = 'inline-block';
                 prevBtn.disabled = currentPage === 1;
                 nextBtn.disabled = currentPage >= totalPages;
-                pageInfo.innerText = `Sayfa ${currentPage} / ${totalPages}`;
-                showAllBtn.innerText = 'Tümünü Göster';
+                pageInfo.innerText = `Page ${currentPage} of ${totalPages}`;
+                showAllBtn.innerText = 'Show All';
             }
         }
 
@@ -705,7 +847,10 @@
             }
         }
 
-        fetchVimeoVideos();
+        window.addEventListener('DOMContentLoaded', () => {
+            randomizeWatermarks();
+            fetchVimeoVideos();
+        });
     </script>
 </body>
 </html>
