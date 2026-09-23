@@ -51,18 +51,18 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* ZARİF KAMERA KÖŞELERİ (Noktalı Çerçeve Yerine Eski Köşe Nişangahları) */
+    /* KAMERA HUD KÖŞELERİ (Daha fazla içeri çekilmiş, estetik görünüm) */
     .hud-corner {
       position: fixed;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       pointer-events: none;
       z-index: 40;
     }
-    .hud-corner-tl { top: 16px; left: 16px; border-top: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
-    .hud-corner-tr { top: 16px; right: 16px; border-top: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
-    .hud-corner-bl { bottom: 16px; left: 16px; border-bottom: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
-    .hud-corner-br { bottom: 16px; right: 16px; border-bottom: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
+    .hud-corner-tl { top: 28px; left: 28px; border-top: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
+    .hud-corner-tr { top: 28px; right: 28px; border-top: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
+    .hud-corner-bl { bottom: 28px; left: 28px; border-bottom: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
+    .hud-corner-br { bottom: 28px; right: 28px; border-bottom: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
 
     /* Multi-color gradient typography */
     .multicolor-gradient-text {
@@ -117,14 +117,14 @@
 </head>
 <body class="bg-[#0A0A0C] text-slate-200 transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
-  <!-- ZARİF KAMERA HUD KÖŞELERİ -->
+  <!-- DENGELİ İÇERİ ÇEKİLMİŞ KAMERA HUD KÖŞELERİ -->
   <div class="hud-corner hud-corner-tl"></div>
   <div class="hud-corner hud-corner-tr"></div>
   <div class="hud-corner hud-corner-bl"></div>
   <div class="hud-corner hud-corner-br"></div>
 
-  <!-- KAMERA METRİK NÜANSLARI (SAĞ ÜST KÖŞE) -->
-  <div class="fixed top-4 right-8 z-40 font-mono text-[10px] text-slate-400 space-x-3 hidden md:flex items-center bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded border border-slate-800">
+  <!-- KAMERA METRİK NÜANSLARI (İÇERİYE ÇEKİLMİŞ SAĞ ÜST) -->
+  <div class="fixed top-7 right-12 z-40 font-mono text-[10px] text-slate-400 space-x-3 hidden md:flex items-center bg-slate-900/90 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-slate-800/80 shadow-lg">
     <span class="text-brand-cyan font-bold">4K DCI</span>
     <span>•</span>
     <span>24 FPS</span>
@@ -140,9 +140,9 @@
 
   <!-- TOP HEADER / HUD NAVIGATION -->
   <header class="border-b border-slate-800/80 bg-[#0A0A0C]/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between relative">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-28 flex items-center justify-between relative">
       
-      <!-- SOL TARAF: REC GÖSTERGESİ -->
+      <!-- SOL TARAF: İÇERİYE ÇEKİLMİŞ REC GÖSTERGESİ -->
       <div class="flex items-center">
         <div class="flex items-center space-x-2 bg-red-950/40 border border-red-800/60 text-red-400 px-4 py-2 rounded-full text-sm font-mono tracking-wider font-bold animate-pulse-slow">
           <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
@@ -150,17 +150,17 @@
         </div>
       </div>
 
-      <!-- ORTA: LOGO (TAM MERKEZDE - SİYAH KUTU OLMADAN DOĞAL YERLEŞİM) -->
+      <!-- ORTA: BÜYÜTÜLMÜŞ LOGO (TAM MERKEZDE - DOĞAL / YUMUŞAK YERLEŞİM) -->
       <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
         <a href="#" class="block focus:outline-none group">
           <img 
             src="abt_logo_siyahta.jpg" 
             alt="ABT Istanbul" 
-            class="site-logo-img max-w-[320px] max-h-[85px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+            class="site-logo-img max-w-[420px] max-h-[115px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_20px_rgba(0,0,0,0.9)]"
             onerror="this.onerror=null; this.classList.add('hidden'); document.getElementById('logo-fallback').classList.remove('hidden');"
           />
           <div id="logo-fallback" class="hidden text-center">
-            <span class="text-3xl font-bold tracking-tighter text-white font-heading block uppercase">abt</span>
+            <span class="text-4xl font-bold tracking-tighter text-white font-heading block uppercase">abt</span>
             <span class="text-xs font-semibold tracking-[0.35em] text-brand-cyan block uppercase -mt-1">istanbul</span>
           </div>
         </a>
@@ -182,7 +182,7 @@
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-16">
+  <main class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 flex-grow w-full space-y-16">
 
     <!-- HERO / TITLE SECTION -->
     <section class="text-center space-y-6 pt-2">
@@ -221,7 +221,7 @@
       </div>
     </section>
 
-    <!-- SELECTED WORKS SECTION (NO CATEGORIES, EXACTLY 6 VIDEOS ON FIRST SCREEN) -->
+    <!-- SELECTED WORKS SECTION (NO CATEGORIES, EXACTLY 6 ABT WORKS ON FIRST SCREEN) -->
     <section class="space-y-8">
       <div class="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
@@ -239,113 +239,113 @@
         </div>
       </div>
 
-      <!-- VIDEO GALLERY GRID (6 CARDS) -->
+      <!-- VIDEO GALLERY GRID (GERÇEK ABT ISTANBUL PROJELERİ) -->
       <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Video Card 1 -->
+        <!-- Video Card 1: Bir Gece Serüveni -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Work 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Bir Gece Serüveni" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-brand-cyan/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-brand-cyan uppercase">Feature Film / Color Grading</div>
-            <h3 class="font-heading font-semibold text-white text-base">Cinematic Feature Showreel</h3>
+            <div class="text-xs font-mono text-brand-cyan uppercase">Sinema / Renk Düzenleme</div>
+            <h3 class="font-heading font-semibold text-white text-base">Bir Gece Serüveni</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Arri RAW 4K</span>
-              <span>Dolby Vision</span>
+              <span>Arri Alexa Mini LF</span>
+              <span>Dolby Vision HDR</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 2 -->
+        <!-- Video Card 2: Şahsiyet -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-purple-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Work 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Şahsiyet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-purple-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-purple-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-purple-400 uppercase">Commercial / Color Suite</div>
-            <h3 class="font-heading font-semibold text-white text-base">Commercial Color Grade</h3>
+            <div class="text-xs font-mono text-purple-400 uppercase">Dijital Dizi / Color & Mastering</div>
+            <h3 class="font-heading font-semibold text-white text-base">Şahsiyet</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
               <span>RED Monstro 8K</span>
-              <span>HDR10+</span>
+              <span>GAİN / OTT Master</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 3 -->
+        <!-- Video Card 3: Kulüp -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-emerald-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Work 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Kulüp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-emerald-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-emerald-400 uppercase">Ses / 11 + 1 Dolby Atmos®</div>
-            <h3 class="font-heading font-semibold text-white text-base">Atmos Audio Mix & Mastering</h3>
+            <div class="text-xs font-mono text-emerald-400 uppercase">Netflix Original / Ses Miksajı</div>
+            <h3 class="font-heading font-semibold text-white text-base">Kulüp</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Pro Tools HDX</span>
-              <span>11+1 Dolby Atmos</span>
+              <span>11+1 Dolby Atmos®</span>
+              <span>IMF Master</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 4 -->
+        <!-- Video Card 4: Sıcak Kafa -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Work 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Sıcak Kafa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-amber-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-amber-400 uppercase">OTT Series / Finishing</div>
-            <h3 class="font-heading font-semibold text-white text-base">Digital Series Post Suite</h3>
+            <div class="text-xs font-mono text-amber-400 uppercase">Netflix Original / Color & Sound</div>
+            <h3 class="font-heading font-semibold text-white text-base">Sıcak Kafa</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
               <span>Sony Venice 6K</span>
-              <span>IMF Package</span>
+              <span>UHD HDR</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 5 -->
+        <!-- Video Card 5: Yaratılan -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-red-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Work 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Yaratılan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-red-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-red-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-red-400 uppercase">Music Video / Color & VFX</div>
-            <h3 class="font-heading font-semibold text-white text-base">High-End Visual Effects</h3>
+            <div class="text-xs font-mono text-red-400 uppercase">Mini Dizi / VFX Finishing</div>
+            <h3 class="font-heading font-semibold text-white text-base">Yaratılan</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
               <span>Autodesk Flame</span>
-              <span>4K Master</span>
+              <span>Atmos & Vision</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 6 -->
+        <!-- Video Card 6: Terzi -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-blue-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80" alt="Work 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80" alt="Terzi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-blue-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-blue-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-blue-400 uppercase">Cinema / DCI DCP Mastering</div>
-            <h3 class="font-heading font-semibold text-white text-base">Theatrical DCP Mastering</h3>
+            <div class="text-xs font-mono text-blue-400 uppercase">Netflix Original / Color Grading</div>
+            <h3 class="font-heading font-semibold text-white text-base">Terzi</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>easyDCP</span>
-              <span>DCI Compliant</span>
+              <span>DaVinci Resolve</span>
+              <span>4K Master</span>
             </div>
           </div>
         </div>
@@ -361,7 +361,7 @@
       </div>
     </section>
 
-    <!-- TEKNİK ALTYAPI (BAŞLIKTAN FIBER AĞ KALDIRILDI) -->
+    <!-- TEKNİK ALTYAPI -->
     <section class="space-y-6 pt-4">
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
@@ -405,8 +405,8 @@
             <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">11 + 1 Dolby Atmos®</span>
           </div>
           <h3 class="font-heading font-bold text-white text-base">11 + 1 Dolby Atmos®</h3>
-          <p class="text-xs text-slate-400 leading-relaxed" data-tr="11 + 1 (7.1.4) Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo." data-en="Certified 11 + 1 (7.1.4) Dolby Atmos® mixing studio equipped with Genelec SAM smart active monitors.">
-            11 + 1 (7.1.4) Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo.
+          <p class="text-xs text-slate-400 leading-relaxed" data-tr="Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo." data-en="Certified 11 + 1 Dolby Atmos® mixing studio equipped with Genelec SAM smart active monitors.">
+            Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo.
           </p>
         </div>
 
@@ -520,7 +520,7 @@
       </div>
     </section>
 
-    <!-- CONTACT SECTION WITH DARK MAPS (BEĞENİLEN KARARAN MAPS MODU) -->
+    <!-- CONTACT SECTION WITH DARK MAPS -->
     <section class="space-y-6 pt-4 border-t border-slate-800">
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
@@ -636,7 +636,7 @@
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-800 bg-[#070709] py-8 text-xs font-mono text-slate-500 mt-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
         <span class="font-bold text-slate-300">ABT ISTANBUL</span>
         <span>&copy; 2026 ABT Post Production Services.</span>
