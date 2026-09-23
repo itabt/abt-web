@@ -15,10 +15,10 @@
             --shadow: 0 10px 20px rgba(0,0,0,0.4);
             --shadow-hover: 0 15px 30px rgba(0,0,0,0.6);
             --logo-bg: #0f1115;
-            --hud-color: #00d8ff;
+            --hud-color: #00adef;
             --hud-text: #ffffff;
-            --hud-glow: rgba(0, 216, 255, 0.95);
-            --hud-border: rgba(0, 216, 255, 0.65);
+            --hud-glow: rgba(0, 173, 239, 0.4);
+            --hud-border: rgba(0, 173, 239, 0.35);
             --flare-opacity: 0.35;
             --badge-bg: rgba(0, 173, 239, 0.08);
             --badge-border: rgba(0, 173, 239, 0.25);
@@ -38,8 +38,8 @@
             --logo-bg: #0f1115;
             --hud-color: #0088cc;
             --hud-text: #0d1b2a;
-            --hud-glow: rgba(0, 136, 204, 0.6);
-            --hud-border: rgba(0, 136, 204, 0.5);
+            --hud-glow: rgba(0, 136, 204, 0.3);
+            --hud-border: rgba(0, 136, 204, 0.3);
             --flare-opacity: 0.15;
             --badge-bg: rgba(0, 136, 204, 0.08);
             --badge-border: rgba(0, 136, 204, 0.25);
@@ -106,7 +106,7 @@
             100% { transform: translate(-40px, -30px) scale(0.9); }
         }
 
-        /* VIEWFINDER GRID & HUD OVERLAY (PARLAKLIK YÜKSELTİLDİ) */
+        /* VIEWFINDER GRID & HUD OVERLAY */
         .cinematic-hud {
             position: fixed;
             top: 0;
@@ -120,103 +120,104 @@
             flex-direction: column;
             justify-content: space-between;
             font-family: "Courier New", Courier, monospace;
-            font-weight: 800;
-            letter-spacing: 2.5px;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         .hud-top, .hud-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--hud-text);
-            text-shadow: 0 0 12px var(--hud-glow);
+            text-shadow: 0 0 6px var(--hud-glow);
         }
 
         .hud-bottom {
-            gap: 20px;
+            gap: 15px;
         }
 
         .hud-rec {
             color: #ff3b30;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 18px rgba(255, 59, 48, 1), 0 0 35px rgba(255, 59, 48, 0.8);
-            font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
+            gap: 8px;
+            text-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
         }
 
         .rec-dot {
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
             background-color: #ff3b30;
             border-radius: 50%;
-            box-shadow: 0 0 15px #ff3b30, 0 0 30px #ff3b30;
+            box-shadow: 0 0 8px #ff3b30;
             animation: blink 1s infinite;
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.15; transform: scale(0.8); }
+            50% { opacity: 0.2; transform: scale(0.85); }
         }
 
         .timecode-val {
-            font-size: 1.35rem;
-            font-weight: 900;
+            font-size: 1.1rem;
+            font-weight: 800;
             color: var(--hud-color);
-            text-shadow: 0 0 15px var(--hud-glow), 0 0 30px var(--hud-glow);
+            text-shadow: 0 0 8px var(--hud-glow);
             white-space: nowrap;
         }
 
-        /* PARLAK ÇERÇEVE VE KÖŞELER */
+        /* KISILMIŞ KESİKLİ ÇERÇEVE VE KÖŞELER */
         .viewfinder-frame {
             position: absolute;
             top: 15px;
             left: 15px;
             right: 15px;
             bottom: 15px;
-            border: 1.5px dashed var(--hud-border);
-            box-shadow: 0 0 12px var(--hud-glow) inset, 0 0 12px var(--hud-glow);
+            border: 1px dashed var(--hud-border);
+            opacity: 0.55; /* Parlaklık azaltıldı */
+            box-shadow: none;
             pointer-events: none;
         }
 
         .corner {
             position: absolute;
-            width: 28px;
-            height: 28px;
+            width: 20px;
+            height: 20px;
             border-color: var(--hud-color);
             border-style: solid;
-            filter: drop-shadow(0 0 10px var(--hud-glow));
+            opacity: 0.7;
         }
 
-        .tl { top: -3px; left: -3px; border-width: 4px 0 0 4px; }
-        .tr { top: -3px; right: -3px; border-width: 4px 4px 0 0; }
-        .bl { bottom: -3px; left: -3px; border-width: 0 0 4px 4px; }
-        .br { bottom: -3px; right: -3px; border-width: 0 4px 3px 0; }
+        .tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+        .tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+        .bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+        .br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
 
-        /* UZATILMIŞ VE PARLATILMIŞ SOUND WAVE */
+        /* HAFİFÇE GENİŞLETİLMİŞ DENGELİ SES EFEKTİ */
         .waveform-container {
             display: flex;
             align-items: flex-end;
-            gap: 4px;
-            height: 28px;
-            flex: 1; /* Sağ tarafa kadar uzaması sağlandı */
-            padding: 0 10px;
+            gap: 3px;
+            height: 18px;
+            width: 130px; /* Eski formata yakın, hafifçe genişletildi */
+            padding: 0;
         }
 
         .wave-bar {
             flex: 1;
             background-color: var(--hud-color);
-            border-radius: 2px;
-            box-shadow: 0 0 12px var(--hud-glow), 0 0 20px var(--hud-glow);
+            border-radius: 1px;
+            opacity: 0.85;
             animation: waveAnim 1.2s ease-in-out infinite alternate;
         }
 
         @keyframes waveAnim {
-            0% { height: 10%; opacity: 0.3; }
-            100% { height: 100%; opacity: 1; }
+            0% { height: 15%; opacity: 0.4; }
+            100% { height: 100%; opacity: 0.9; }
         }
 
         /* CONTAINER & LAYOUT */
@@ -794,7 +795,7 @@
         <div class="flare flare-2"></div>
     </div>
 
-    <!-- CAMERA VIEWFINDER / TIMECODE / ILLUMINATED HUD -->
+    <!-- CAMERA VIEWFINDER / TIMECODE / HUD -->
     <div class="cinematic-hud">
         <div class="hud-top">
             <span class="hud-rec"><span class="rec-dot"></span> REC</span>
@@ -813,7 +814,7 @@
             <span>TCG</span>
             <span class="timecode-val" id="live-timecode">01:00:00:00</span>
             
-            <!-- SAYFANIN SONUNA KADAR UZAYAN SOUND WAVE EFEKTİ -->
+            <!-- ESKİ FORMATTA HAFİFÇE GENİŞLETİLMİŞ SES EFEKTİ (16 ÇUBUK) -->
             <div class="waveform-container" id="waveform">
                 <div class="wave-bar" style="animation-duration: 0.8s;"></div>
                 <div class="wave-bar" style="animation-duration: 1.1s;"></div>
@@ -830,20 +831,7 @@
                 <div class="wave-bar" style="animation-duration: 1.1s;"></div>
                 <div class="wave-bar" style="animation-duration: 0.9s;"></div>
                 <div class="wave-bar" style="animation-duration: 0.7s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.3s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.5s;"></div>
                 <div class="wave-bar" style="animation-duration: 1.2s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.8s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.0s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.6s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.1s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.9s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.4s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.7s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.2s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.5s;"></div>
-                <div class="wave-bar" style="animation-duration: 0.8s;"></div>
-                <div class="wave-bar" style="animation-duration: 1.0s;"></div>
             </div>
 
             <span>ABT-STUDIO</span>
@@ -952,7 +940,7 @@
             </div>
         </div>
 
-        <!-- VENDOR & STREAMING PLATFORM COMPLIANCE (GARANTİLİ TEMİZ INLINE SVG'LER) -->
+        <!-- VENDOR & STREAMING PLATFORM COMPLIANCE -->
         <div class="vendor-section">
             <h2 class="section-title">DELIVERY COMPLIANCE & PLATFORMS</h2>
             <p class="vendor-sub">Certified Masters, IMF Packages & QC Workflows for Global and Local Broadcasters</p>
