@@ -15,7 +15,10 @@
             --shadow: 0 10px 20px rgba(0,0,0,0.4);
             --shadow-hover: 0 15px 30px rgba(0,0,0,0.6);
             --logo-bg: #0f1115;
-            --overlay-opacity: 0.12;
+            --hud-color: #00adef;
+            --hud-text: #ffffff;
+            --hud-glow: rgba(0, 173, 239, 0.6);
+            --hud-border: rgba(0, 173, 239, 0.35);
             --flare-opacity: 0.25;
         }
 
@@ -29,7 +32,10 @@
             --shadow: 0 4px 15px rgba(0,0,0,0.06);
             --shadow-hover: 0 12px 25px rgba(0,0,0,0.12);
             --logo-bg: #0f1115;
-            --overlay-opacity: 0.08;
+            --hud-color: #0077b6;
+            --hud-text: #0d1b2a;
+            --hud-glow: rgba(0, 119, 182, 0.35);
+            --hud-border: rgba(0, 119, 182, 0.4);
             --flare-opacity: 0.12;
         }
 
@@ -49,7 +55,7 @@
             min-height: 100vh;
         }
 
-        /* 1 & 2. LENS FLARES & GRAIN BACKGROUND */
+        /* LENS FLARES BACKGROUND */
         .ambient-flares {
             position: fixed;
             top: 0;
@@ -92,7 +98,7 @@
             100% { transform: translate(-40px, -30px) scale(0.9); }
         }
 
-        /* 4. VIEWFINDER GRID & HUD OVERLAY */
+        /* VIEWFINDER GRID & ILLUMINATED HUD OVERLAY */
         .cinematic-hud {
             position: fixed;
             top: 0;
@@ -106,85 +112,93 @@
             flex-direction: column;
             justify-content: space-between;
             font-family: "Courier New", Courier, monospace;
-            font-weight: 700;
-            letter-spacing: 2px;
-            opacity: var(--overlay-opacity);
+            font-weight: 800;
+            letter-spacing: 2.5px;
         }
 
         .hud-top, .hud-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
+            font-size: 1rem;
+            color: var(--hud-text);
+            text-shadow: 0 0 10px var(--hud-glow);
         }
 
         .hud-rec {
             color: #ff3b30;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            text-shadow: 0 0 12px rgba(255, 59, 48, 0.8);
+            font-weight: 900;
         }
 
         .rec-dot {
-            width: 8px;
-            height: 8px;
+            width: 11px;
+            height: 11px;
             background-color: #ff3b30;
             border-radius: 50%;
+            box-shadow: 0 0 10px #ff3b30;
             animation: blink 1s infinite;
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.85); }
         }
 
-        /* 1. TIMECODE DISPLAY */
         .timecode-val {
-            font-size: 1.1rem;
-            color: var(--accent-color);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--hud-color);
+            text-shadow: 0 0 12px var(--hud-glow);
         }
 
         .viewfinder-frame {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px dashed rgba(255,255,255,0.15);
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            border: 1px dashed var(--hud-border);
             pointer-events: none;
         }
 
         .corner {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            border-color: var(--text-main);
+            width: 24px;
+            height: 24px;
+            border-color: var(--hud-color);
             border-style: solid;
+            filter: drop-shadow(0 0 6px var(--hud-glow));
         }
 
-        .tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-        .tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
-        .bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
-        .br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+        .tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+        .tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+        .bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+        .br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
 
-        /* 3. AUDIO WAVEFORM BARS */
+        /* AUDIO WAVEFORM BARS */
         .waveform-container {
             display: flex;
             align-items: flex-end;
-            gap: 3px;
-            height: 20px;
+            gap: 4px;
+            height: 24px;
+            padding: 0 10px;
         }
 
         .wave-bar {
-            width: 3px;
-            background-color: var(--accent-color);
-            border-radius: 2px;
+            width: 4px;
+            background-color: var(--hud-color);
+            border-radius: 3px;
+            box-shadow: 0 0 8px var(--hud-glow);
             animation: waveAnim 1.2s ease-in-out infinite alternate;
         }
 
         @keyframes waveAnim {
-            0% { height: 15%; }
-            100% { height: 100%; }
+            0% { height: 15%; opacity: 0.4; }
+            100% { height: 100%; opacity: 1; }
         }
 
         /* CONTAINER & LAYOUT */
@@ -196,7 +210,6 @@
             z-index: 1;
         }
 
-        /* Top Bar & Theme Toggle */
         .top-bar {
             display: flex;
             justify-content: flex-end;
@@ -450,7 +463,7 @@
             font-weight: bold;
         }
 
-        /* 7. STUDIO TECH SPECS SECTION */
+        /* STUDIO TECH SPECS SECTION */
         .tech-specs-section {
             background: var(--card-bg);
             border-radius: 16px;
@@ -634,7 +647,7 @@
         <div class="flare flare-2"></div>
     </div>
 
-    <!-- CAMERA VIEWFINDER / TIMECODE / HUD -->
+    <!-- CAMERA VIEWFINDER / TIMECODE / ILLUMINATED HUD -->
     <div class="cinematic-hud">
         <div class="hud-top">
             <span class="hud-rec"><span class="rec-dot"></span> REC</span>
@@ -651,9 +664,11 @@
 
         <div class="hud-bottom">
             <span>TCG</span>
+            
+            <!-- LIVE TIMECODE -->
             <span class="timecode-val" id="live-timecode">01:00:00:00</span>
             
-            <!-- AUDIO WAVEFORM BARS -->
+            <!-- ANIMATED AUDIO WAVEFORM -->
             <div class="waveform-container" id="waveform">
                 <div class="wave-bar" style="animation-duration: 0.8s;"></div>
                 <div class="wave-bar" style="animation-duration: 1.1s;"></div>
