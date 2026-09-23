@@ -11,8 +11,8 @@
             padding: 0;
         }
         body {
-            background-color: #0f1115;
-            color: #ffffff;
+            background-color: #f8f9fa;
+            color: #1a1d20;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         .container {
@@ -24,20 +24,28 @@
             text-align: center;
             margin-bottom: 50px;
             padding-bottom: 25px;
-            border-bottom: 1px solid #1f2430;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        /* Siyah logoyu beyaz sitede şık göstermek için kutu efekti */
+        .logo-wrapper {
+            display: inline-block;
+            background-color: #0f1115;
+            padding: 15px 30px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .site-logo {
-            max-width: 280px;
+            max-width: 260px;
             height: auto;
-            margin-bottom: 15px;
-            display: inline-block;
+            display: block;
         }
         header p {
-            color: #00adef;
+            color: #0088cc;
             font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         /* Video Izgarası */
@@ -48,15 +56,16 @@
             margin-bottom: 40px;
         }
         .video-card {
-            background: #181b22;
+            background: #ffffff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #eaeaea;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .video-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
         }
         
         /* Thumbnail ve Oynat Alanı */
@@ -87,7 +96,7 @@
             transform: translate(-50%, -50%);
             width: 60px;
             height: 60px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.65);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -106,7 +115,7 @@
             margin-left: 4px;
         }
         .video-card:hover .play-btn {
-            background: #00adef;
+            background: #0088cc;
             transform: translate(-50%, -50%) scale(1.1);
         }
         .thumb-container iframe {
@@ -123,7 +132,7 @@
         .video-title {
             font-size: 1.05rem;
             font-weight: 600;
-            color: #e2e8f0;
+            color: #2c3e50;
             line-height: 1.4;
         }
 
@@ -137,19 +146,20 @@
             flex-wrap: wrap;
         }
         .btn {
-            background-color: #181b22;
-            color: #ffffff;
-            border: 1px solid #2d3342;
+            background-color: #ffffff;
+            color: #2c3e50;
+            border: 1px solid #d0d7de;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.95rem;
             font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             transition: all 0.3s ease;
         }
         .btn:hover:not(:disabled) {
-            background-color: #00adef;
-            border-color: #00adef;
+            background-color: #0088cc;
+            border-color: #0088cc;
             color: #ffffff;
         }
         .btn:disabled {
@@ -157,23 +167,25 @@
             cursor: not-allowed;
         }
         .page-info {
-            color: #8a99ad;
+            color: #6c757d;
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
         /* İletişim ve Harita Alanı */
         .contact-section {
-            background: #181b22;
+            background: #ffffff;
             border-radius: 16px;
             padding: 40px;
             margin-top: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
         }
         .contact-section h2 {
             font-size: 1.6rem;
             letter-spacing: 2px;
             margin-bottom: 25px;
-            color: #ffffff;
+            color: #1a1d20;
             text-align: center;
         }
         .contact-grid {
@@ -192,22 +204,24 @@
             justify-content: center;
             gap: 20px;
             font-size: 1.05rem;
-            color: #9ab;
+            color: #495057;
         }
         .contact-info div strong {
-            color: #fff;
+            color: #1a1d20;
             display: block;
             margin-bottom: 5px;
         }
         .contact-info a {
-            color: #00adef;
+            color: #0088cc;
             text-decoration: none;
+            font-weight: 500;
         }
         .map-container {
             border-radius: 12px;
             overflow: hidden;
             height: 300px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
         }
         .map-container iframe {
             width: 100%;
@@ -219,14 +233,14 @@
             text-align: center;
             margin-top: 50px;
             padding-top: 20px;
-            color: #566;
+            color: #8c959f;
             font-size: 0.9rem;
         }
         .loading {
             text-align: center;
             grid-column: 1 / -1;
             padding: 50px;
-            color: #888;
+            color: #6c757d;
         }
     </style>
 </head>
@@ -234,7 +248,9 @@
 
     <div class="container">
         <header>
-            <img src="abt_logo_siyahta.jpg" alt="abt|istanbul" class="site-logo">
+            <div class="logo-wrapper">
+                <img src="abt_logo_siyahta.jpg" alt="abt|istanbul" class="site-logo">
+            </div>
             <p>SELECTED WORKS</p>
         </header>
 
@@ -258,7 +274,7 @@
                 <div class="contact-info">
                     <div>
                         <strong>Adres:</strong>
-                        abt istanbul<br>
+                        abt|istanbul<br>
                         Levent, Ortanca Sk. No:6,<br>
                         34330 Beşiktaş / İstanbul
                     </div>
@@ -307,7 +323,6 @@
                     return;
                 }
 
-                // Videoları yayınlanma tarihine göre en yeniden en eskiye sırala
                 videos.sort((a, b) => new Date(b.upload_date) - new Date(a.upload_date));
                 allVideos = videos;
 
