@@ -51,18 +51,18 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* KAMERA HUD KÖŞELERİ (Daha fazla içeri çekilmiş, estetik görünüm) */
+    /* KAMERA HUD KÖŞELERİ (4 KÖŞEDE TAM GÖRÜNÜR, İÇERİYE ÇEKİLMİŞ) */
     .hud-corner {
       position: fixed;
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       pointer-events: none;
-      z-index: 40;
+      z-index: 100;
     }
-    .hud-corner-tl { top: 28px; left: 28px; border-top: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
-    .hud-corner-tr { top: 28px; right: 28px; border-top: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
-    .hud-corner-bl { bottom: 28px; left: 28px; border-bottom: 2px solid #00F0FF; border-left: 2px solid #00F0FF; }
-    .hud-corner-br { bottom: 28px; right: 28px; border-bottom: 2px solid #00F0FF; border-right: 2px solid #00F0FF; }
+    .hud-corner-tl { top: 20px; left: 24px; border-top: 3px solid #00F0FF; border-left: 3px solid #00F0FF; }
+    .hud-corner-tr { top: 20px; right: 24px; border-top: 3px solid #00F0FF; border-right: 3px solid #00F0FF; }
+    .hud-corner-bl { bottom: 20px; left: 24px; border-bottom: 3px solid #00F0FF; border-left: 3px solid #00F0FF; }
+    .hud-corner-br { bottom: 20px; right: 24px; border-bottom: 3px solid #00F0FF; border-right: 3px solid #00F0FF; }
 
     /* Multi-color gradient typography */
     .multicolor-gradient-text {
@@ -117,40 +117,25 @@
 </head>
 <body class="bg-[#0A0A0C] text-slate-200 transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
-  <!-- DENGELİ İÇERİ ÇEKİLMİŞ KAMERA HUD KÖŞELERİ -->
+  <!-- 4 KÖŞEDE TAM DENGELİ KAMERA HUD ÇERÇEVELERİ -->
   <div class="hud-corner hud-corner-tl"></div>
   <div class="hud-corner hud-corner-tr"></div>
   <div class="hud-corner hud-corner-bl"></div>
   <div class="hud-corner hud-corner-br"></div>
 
-  <!-- KAMERA METRİK NÜANSLARI (İÇERİYE ÇEKİLMİŞ SAĞ ÜST) -->
-  <div class="fixed top-7 right-12 z-40 font-mono text-[10px] text-slate-400 space-x-3 hidden md:flex items-center bg-slate-900/90 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-slate-800/80 shadow-lg">
-    <span class="text-brand-cyan font-bold">4K DCI</span>
-    <span>•</span>
-    <span>24 FPS</span>
-    <span>•</span>
-    <span>ISO 800</span>
-    <span>•</span>
-    <span>5600K</span>
-    <span>•</span>
-    <span>RAW 12-BIT</span>
-    <span>•</span>
-    <span class="text-emerald-400"><i class="fa-solid fa-battery-full"></i> 98%</span>
-  </div>
-
   <!-- TOP HEADER / HUD NAVIGATION -->
   <header class="border-b border-slate-800/80 bg-[#0A0A0C]/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-28 flex items-center justify-between relative">
+    <div class="max-w-7xl mx-auto px-10 sm:px-14 lg:px-16 h-28 flex items-center justify-between relative">
       
-      <!-- SOL TARAF: İÇERİYE ÇEKİLMİŞ REC GÖSTERGESİ -->
-      <div class="flex items-center">
-        <div class="flex items-center space-x-2 bg-red-950/40 border border-red-800/60 text-red-400 px-4 py-2 rounded-full text-sm font-mono tracking-wider font-bold animate-pulse-slow">
-          <span class="w-3.5 h-3.5 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
-          <span class="text-base tracking-widest text-red-500">● REC</span>
+      <!-- SOL TARAF: SOL ÜSTE ALINAN REC GÖSTERGESİ -->
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2 bg-red-950/50 border border-red-800/70 text-red-400 px-4 py-2 rounded-full text-xs font-mono tracking-wider font-bold animate-pulse-slow">
+          <span class="w-3 h-3 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
+          <span class="text-sm tracking-widest text-red-500 font-bold">● REC</span>
         </div>
       </div>
 
-      <!-- ORTA: BÜYÜTÜLMÜŞ LOGO (TAM MERKEZDE - DOĞAL / YUMUŞAK YERLEŞİM) -->
+      <!-- ORTA: BÜYÜTÜLMÜŞ LOGO (TAM MERKEZDE) -->
       <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
         <a href="#" class="block focus:outline-none group">
           <img 
@@ -166,8 +151,22 @@
         </a>
       </div>
 
-      <!-- SAĞ TARAF: DİL & TEMA KONTROLLERİ -->
+      <!-- SAĞ TARAF: SAĞ ÜSTE ALINAN KAMERA METRİKLERİ, DİL & TEMA -->
       <div class="flex items-center space-x-3">
+        
+        <!-- SAĞ ÜST KAMERA NÜANSLARI (4K, FPS, ISO, KELVIN) -->
+        <div class="hidden xl:flex items-center space-x-2 font-mono text-[10px] text-slate-400 bg-slate-900/90 border border-slate-800 px-3 py-2 rounded-lg shadow-md">
+          <span class="text-brand-cyan font-bold">4K DCI</span>
+          <span>•</span>
+          <span>24 FPS</span>
+          <span>•</span>
+          <span>ISO 800</span>
+          <span>•</span>
+          <span>5600K</span>
+          <span>•</span>
+          <span class="text-emerald-400"><i class="fa-solid fa-battery-full"></i> 98%</span>
+        </div>
+
         <button id="langToggle" onclick="toggleLanguage()" class="flex items-center space-x-2 bg-slate-900 border border-slate-700/80 hover:border-brand-cyan text-slate-300 px-3.5 py-2 rounded-lg text-xs font-mono transition-all">
           <i class="fa-solid fa-globe text-brand-cyan"></i>
           <span id="langLabel" class="font-bold">TR</span>
@@ -578,7 +577,7 @@
           </div>
         </div>
 
-        <!-- GOOGLE MAPS EMBED IFRAME (BEĞENİLEN ŞIK KARARAN SİYAH/BEYAZ TEMA) -->
+        <!-- GOOGLE MAPS EMBED IFRAME -->
         <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden min-h-[300px] relative">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.204523910283!2d29.0125!3d41.0772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab6518a4a5555%3A0x6a0f123456789abc!2sOrtanca%20Sk.%20No%3A6%2C%2034330%20Be%C5%9Fikta%C5%9F%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
