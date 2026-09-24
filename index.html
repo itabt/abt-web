@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +51,19 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* KAMERA HUD KÖŞELERİ (4 KÖŞEDE TAM GÖRÜNÜR, İÇERİYE ÇEKİLMİŞ) */
+    /* 4 KÖŞEYİ BİRBİRİNE BAĞLAYAN SİLİK NOKTALI KAMERA HUD ÇERÇEVESİ */
+    .hud-frame-box {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      right: 24px;
+      bottom: 20px;
+      border: 1px dashed rgba(0, 240, 255, 0.25);
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    /* KAMERA HUD KÖŞELERİ (4 KÖŞEDE TAM DENGELİ) */
     .hud-corner {
       position: fixed;
       width: 28px;
@@ -63,6 +75,14 @@
     .hud-corner-tr { top: 20px; right: 24px; border-top: 3px solid #00F0FF; border-right: 3px solid #00F0FF; }
     .hud-corner-bl { bottom: 20px; left: 24px; border-bottom: 3px solid #00F0FF; border-left: 3px solid #00F0FF; }
     .hud-corner-br { bottom: 20px; right: 24px; border-bottom: 3px solid #00F0FF; border-right: 3px solid #00F0FF; }
+
+    /* SOL ÜST L KÖŞESİNİN YANINA YERLEŞTİRİLEN REC GÖSTERGESİ */
+    .hud-rec-tag {
+      position: fixed;
+      top: 26px;
+      left: 60px;
+      z-index: 100;
+    }
 
     /* Multi-color gradient typography */
     .multicolor-gradient-text {
@@ -117,23 +137,29 @@
 </head>
 <body class="bg-[#0A0A0C] text-slate-200 transition-colors duration-300 min-h-screen flex flex-col justify-between">
 
+  <!-- NOKTALI BAĞLANTI ÇERÇEVESİ (SILIK DASHED FRAME) -->
+  <div class="hud-frame-box"></div>
+
   <!-- 4 KÖŞEDE TAM DENGELİ KAMERA HUD ÇERÇEVELERİ -->
   <div class="hud-corner hud-corner-tl"></div>
   <div class="hud-corner hud-corner-tr"></div>
   <div class="hud-corner hud-corner-bl"></div>
   <div class="hud-corner hud-corner-br"></div>
 
+  <!-- SOL ÜST 'L' NİŞANGAHININ HEMEN YANINDAKİ ● REC GÖSTERGESİ -->
+  <div class="hud-rec-tag pointer-events-auto">
+    <div class="flex items-center space-x-2 bg-red-950/70 border border-red-800/80 text-red-400 px-3 py-1 rounded-full text-xs font-mono tracking-wider font-bold animate-pulse-slow backdrop-blur-md shadow-lg">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-600 inline-block shadow-[0_0_10px_#ff0033] animate-ping"></span>
+      <span class="text-xs tracking-widest text-red-500 font-bold">● REC</span>
+    </div>
+  </div>
+
   <!-- TOP HEADER / HUD NAVIGATION -->
   <header class="border-b border-slate-800/80 bg-[#0A0A0C]/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-10 sm:px-14 lg:px-16 h-28 flex items-center justify-between relative">
       
-      <!-- SOL TARAF: SOL ÜSTE ALINAN REC GÖSTERGESİ -->
-      <div class="flex items-center space-x-3">
-        <div class="flex items-center space-x-2 bg-red-950/50 border border-red-800/70 text-red-400 px-4 py-2 rounded-full text-xs font-mono tracking-wider font-bold animate-pulse-slow">
-          <span class="w-3 h-3 rounded-full bg-red-600 inline-block shadow-[0_0_12px_#ff0033] animate-ping"></span>
-          <span class="text-sm tracking-widest text-red-500 font-bold">● REC</span>
-        </div>
-      </div>
+      <!-- SOL TARAF (BOŞLUK - REC ARTIK HUD KÖŞESİNDE) -->
+      <div class="w-32 hidden sm:block"></div>
 
       <!-- ORTA: BÜYÜTÜLMÜŞ LOGO (TAM MERKEZDE) -->
       <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
@@ -169,7 +195,7 @@
 
         <button id="langToggle" onclick="toggleLanguage()" class="flex items-center space-x-2 bg-slate-900 border border-slate-700/80 hover:border-brand-cyan text-slate-300 px-3.5 py-2 rounded-lg text-xs font-mono transition-all">
           <i class="fa-solid fa-globe text-brand-cyan"></i>
-          <span id="langLabel" class="font-bold">TR</span>
+          <span id="langLabel" class="font-bold">EN</span>
         </button>
 
         <button id="themeToggle" onclick="toggleTheme()" class="bg-slate-900 border border-slate-700/80 hover:border-amber-400 text-slate-300 p-2.5 rounded-lg text-xs font-mono transition-all">
@@ -187,12 +213,12 @@
     <section class="text-center space-y-6 pt-2">
       <div class="inline-flex items-center space-x-3 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-mono text-slate-400">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span data-tr="POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU" data-en="POST-PRODUCTION & COLOR GRADING SUITE">POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU</span>
+        <span data-tr="POST-PRODÜKSİYON & RENK DÜZENLEME STÜDYOSU" data-en="POST-PRODUCTION & COLOR GRADING SUITE">POST-PRODUCTION & COLOR GRADING SUITE</span>
       </div>
 
       <div class="space-y-3">
         <h2 class="text-xl sm:text-2xl font-medium tracking-wide text-slate-400 uppercase font-heading" data-tr="Görsel Deneyimler & Yaratıcı Prodüksiyon" data-en="Visual Experiences & Creative Production">
-          Görsel Deneyimler & Yaratıcı Prodüksiyon
+          Visual Experiences & Creative Production
         </h2>
         <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading max-w-5xl mx-auto leading-tight">
           <span class="multicolor-gradient-text uppercase">
@@ -220,64 +246,64 @@
       </div>
     </section>
 
-    <!-- SELECTED WORKS SECTION (NO CATEGORIES, EXACTLY 6 ABT WORKS ON FIRST SCREEN) -->
+    <!-- SELECTED WORKS SECTION (YALNIZCA VIMEO ABT ISTANBUL PROJELERİ - EN YENİLER EN BAŞTA) -->
     <section class="space-y-8">
       <div class="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
           <h2 class="text-3xl font-extrabold font-heading tracking-tight">
             <span class="multicolor-gradient-text">SELECTED WORKS</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1" data-tr="Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri." data-en="Featured films, series, commercial and color grading projects.">
-            Öne çıkan filmler, diziler, reklam ve renk düzenleme projeleri.
+          <p class="text-slate-400 text-sm mt-1" data-tr="Öne çıkan en son filmler, diziler ve renk düzenleme projeleri." data-en="Featured latest films, series, and color grading projects.">
+            Featured latest films, series, and color grading projects.
           </p>
         </div>
 
         <div class="flex items-center space-x-2 text-xs font-mono text-slate-500">
           <i class="fa-solid fa-film text-brand-cyan"></i>
-          <span>SHOWCASE PORTFOLIO</span>
+          <span>VIMEO / ABTISTANBUL</span>
         </div>
       </div>
 
-      <!-- VIDEO GALLERY GRID (GERÇEK ABT ISTANBUL PROJELERİ) -->
+      <!-- VIDEO GALLERY GRID (LATEST ABT ISTANBUL WORKS FIRST) -->
       <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Video Card 1: Bir Gece Serüveni -->
+        <!-- Video 1: ABT Showreel (En Son Yüklenen) -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-brand-cyan/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Bir Gece Serüveni" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="ABT Post Production Showreel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-brand-cyan/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-brand-cyan uppercase">Sinema / Renk Düzenleme</div>
-            <h3 class="font-heading font-semibold text-white text-base">Bir Gece Serüveni</h3>
+            <div class="text-xs font-mono text-brand-cyan uppercase">Showreel / Color & Post</div>
+            <h3 class="font-heading font-semibold text-white text-base">ABT Post Production Showreel</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Arri Alexa Mini LF</span>
-              <span>Dolby Vision HDR</span>
+              <span>Arri / RED / Sony</span>
+              <span>4K HDR Master</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 2: Şahsiyet -->
+        <!-- Video 2: Bir Gece Serüveni -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-purple-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Şahsiyet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Bir Gece Serüveni" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-purple-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-purple-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-purple-400 uppercase">Dijital Dizi / Color & Mastering</div>
-            <h3 class="font-heading font-semibold text-white text-base">Şahsiyet</h3>
+            <div class="text-xs font-mono text-purple-400 uppercase">Feature Film / Color Grading</div>
+            <h3 class="font-heading font-semibold text-white text-base">Bir Gece Serüveni</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>RED Monstro 8K</span>
-              <span>GAİN / OTT Master</span>
+              <span>Arri Alexa Mini LF</span>
+              <span>Dolby Vision</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 3: Kulüp -->
+        <!-- Video 3: Kulüp -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-emerald-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
             <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Kulüp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
@@ -286,7 +312,7 @@
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-emerald-400 uppercase">Netflix Original / Ses Miksajı</div>
+            <div class="text-xs font-mono text-emerald-400 uppercase">Netflix Original / Audio Mix</div>
             <h3 class="font-heading font-semibold text-white text-base">Kulüp</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
               <span>11+1 Dolby Atmos®</span>
@@ -295,7 +321,7 @@
           </div>
         </div>
 
-        <!-- Video Card 4: Sıcak Kafa -->
+        <!-- Video 4: Sıcak Kafa -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-amber-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('76979871')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
             <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Sıcak Kafa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
@@ -313,25 +339,25 @@
           </div>
         </div>
 
-        <!-- Video Card 5: Yaratılan -->
+        <!-- Video 5: Şahsiyet -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-red-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('357274719')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Yaratılan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+            <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Şahsiyet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span class="w-12 h-12 rounded-full bg-red-400 text-slate-950 flex items-center justify-center text-lg pl-1 shadow-lg shadow-red-400/30"><i class="fa-solid fa-play"></i></span>
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-red-400 uppercase">Mini Dizi / VFX Finishing</div>
-            <h3 class="font-heading font-semibold text-white text-base">Yaratılan</h3>
+            <div class="text-xs font-mono text-red-400 uppercase">Original Series / Color & Mastering</div>
+            <h3 class="font-heading font-semibold text-white text-base">Şahsiyet</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
-              <span>Autodesk Flame</span>
-              <span>Atmos & Vision</span>
+              <span>RED Monstro 8K</span>
+              <span>GAİN Master</span>
             </div>
           </div>
         </div>
 
-        <!-- Video Card 6: Terzi -->
+        <!-- Video 6: Terzi -->
         <div class="group bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-blue-400/50 transition-all duration-300 cursor-pointer" onclick="openLightbox('115533030')">
           <div class="relative aspect-video bg-slate-950 overflow-hidden">
             <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80" alt="Terzi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
@@ -340,7 +366,7 @@
             </div>
           </div>
           <div class="p-4 space-y-2">
-            <div class="text-xs font-mono text-blue-400 uppercase">Netflix Original / Color Grading</div>
+            <div class="text-xs font-mono text-blue-400 uppercase">Netflix Original / Color Finishing</div>
             <h3 class="font-heading font-semibold text-white text-base">Terzi</h3>
             <div class="flex justify-between items-center text-xs text-slate-400 font-mono pt-2 border-t border-slate-800/80">
               <span>DaVinci Resolve</span>
@@ -354,7 +380,7 @@
       <!-- SHOW MORE BUTTON -->
       <div class="text-center pt-2">
         <button onclick="loadMoreWorks()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-brand-cyan text-slate-200 px-6 py-3 rounded-xl text-xs font-mono tracking-wider transition-all inline-flex items-center space-x-2">
-          <span data-tr="TÜM PROJELERİ İNCELE" data-en="VIEW ALL WORKS">TÜM PROJELERİ İNCELE</span>
+          <span data-tr="TÜM PROJELERİ İNCELE" data-en="VIEW ALL WORKS ON VIMEO">VIEW ALL WORKS ON VIMEO</span>
           <i class="fa-solid fa-arrow-right text-brand-cyan"></i>
         </button>
       </div>
@@ -365,10 +391,10 @@
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
           <i class="fa-solid fa-microchip text-brand-cyan text-sm"></i>
-          <span data-tr="STÜDYO TEKNİK ALTYAPISI" data-en="STUDIO TECHNICAL INFRASTRUCTURE">STÜDYO TEKNİK ALTYAPISI</span>
+          <span data-tr="STÜDYO TEKNİK ALTYAPISI" data-en="STUDIO TECHNICAL INFRASTRUCTURE">STUDIO TECHNICAL INFRASTRUCTURE</span>
         </h2>
         <p class="text-xs text-slate-400 mt-1" data-tr="Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı." data-en="Studio hardware engineered for uncompressed 4K/8K editing and high-speed data delivery.">
-          Kesintisiz 4K/8K ham kurgu ve yüksek hızlı veri aktarımı için tasarlanmış stüdyo donanımı.
+          Studio hardware engineered for uncompressed 4K/8K editing and high-speed data delivery.
         </p>
       </div>
 
@@ -381,7 +407,7 @@
           </div>
           <h3 class="font-heading font-bold text-white text-base">SAN & Fiber Network</h3>
           <p class="text-xs text-slate-400 leading-relaxed" data-tr="10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları." data-en="Uncompressed 4K HDR playback and shared SAN editing servers via 10GbE backbone network.">
-            10GbE omurga ağ üzerinden eşzamanlı uncompressed 4K HDR playback ve ortak kurgu sunucuları.
+            Uncompressed 4K HDR playback and shared SAN editing servers via 10GbE backbone network.
           </p>
         </div>
 
@@ -393,7 +419,7 @@
           </div>
           <h3 class="font-heading font-bold text-white text-base">Color Grading Suite</h3>
           <p class="text-xs text-slate-400 leading-relaxed" data-tr="Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi." data-en="Sony BVM-HX310 4K HDR Trimaster monitors and DaVinci Resolve Advanced Panel control surface.">
-            Sony BVM-HX310 4K HDR Trimaster monitörler ve DaVinci Resolve Advanced Panel kontrol yüzeyi.
+            Sony BVM-HX310 4K HDR Trimaster monitors and DaVinci Resolve Advanced Panel control surface.
           </p>
         </div>
 
@@ -405,7 +431,7 @@
           </div>
           <h3 class="font-heading font-bold text-white text-base">11 + 1 Dolby Atmos®</h3>
           <p class="text-xs text-slate-400 leading-relaxed" data-tr="Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo." data-en="Certified 11 + 1 Dolby Atmos® mixing studio equipped with Genelec SAM smart active monitors.">
-            Genelec SAM akıllı aktif izleme hoparlörleriyle donatılmış lisanslı Dolby Atmos® stüdyo.
+            Certified 11 + 1 Dolby Atmos® mixing studio equipped with Genelec SAM smart active monitors.
           </p>
         </div>
 
@@ -417,7 +443,7 @@
           </div>
           <h3 class="font-heading font-bold text-white text-base">DCP & Mastering Lab</h3>
           <p class="text-xs text-slate-400 leading-relaxed" data-tr="Sinema salonları için DCI uyumlu unencrypted/encrypted DCP paketleme ve KDM anahtar üretimi." data-en="DCI compliant DCP packaging and KDM key generation for cinema distribution.">
-            Sinema salonları için DCI uyumlu unencrypted/encrypted DCP paketleme ve KDM anahtar üretimi.
+            DCI compliant DCP packaging and KDM key generation for cinema distribution.
           </p>
         </div>
       </div>
@@ -428,7 +454,7 @@
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
           <i class="fa-solid fa-tv text-brand-cyan text-sm"></i>
-          <span data-tr="DİJİTAL PLATFORMLAR" data-en="DIGITAL PLATFORMS">DİJİTAL PLATFORMLAR</span>
+          <span data-tr="DİJİTAL PLATFORMLAR" data-en="DIGITAL PLATFORMS">DIGITAL PLATFORMS</span>
         </h2>
       </div>
 
@@ -472,7 +498,7 @@
         <div class="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300">
           <span class="w-2.5 h-2.5 rounded-full bg-[#00FF87] shadow-[0_0_8px_#00FF87]"></span>
           <span class="font-bold text-white">GAİN</span>
-          <span class="text-[10px] text-slate-500 uppercase">Yerel Onaylı</span>
+          <span class="text-[10px] text-slate-500 uppercase">Local QC</span>
         </div>
 
         <!-- BluTV -->
@@ -524,7 +550,7 @@
       <div class="border-b border-slate-800 pb-3">
         <h2 class="text-xl font-bold font-heading text-white tracking-wide uppercase flex items-center space-x-2">
           <i class="fa-solid fa-location-dot text-brand-cyan text-sm"></i>
-          <span data-tr="İLETIŞİM VE STÜDYO ADRESİ" data-en="CONTACT & STUDIO LOCATION">İLETIŞİM VE STÜDYO ADRESİ</span>
+          <span data-tr="İLETIŞİM VE STÜDYO ADRESİ" data-en="CONTACT & STUDIO LOCATION">CONTACT & STUDIO LOCATION</span>
         </h2>
       </div>
 
@@ -534,7 +560,7 @@
           <div class="space-y-4">
             <h3 class="text-2xl font-bold font-heading text-white">ABT ISTANBUL</h3>
             <p class="text-slate-400 text-sm leading-relaxed" data-tr="Projeleriniz, renk düzenleme, 11+1 Dolby Atmos ses miksajı ve stüdyo rezervasyonları için bizimle iletişime geçin." data-en="Get in touch with us for project inquiries, color grading, 11+1 Dolby Atmos sound mixing, and studio bookings.">
-              Projeleriniz, renk düzenleme, 11+1 Dolby Atmos ses miksajı ve stüdyo rezervasyonları için bizimle iletişime geçin.
+              Get in touch with us for project inquiries, color grading, 11+1 Dolby Atmos sound mixing, and studio bookings.
             </p>
           </div>
 
@@ -542,7 +568,7 @@
             <div class="flex items-start space-x-3">
               <i class="fa-solid fa-phone text-emerald-400 mt-1"></i>
               <div>
-                <div class="text-xs text-slate-500 uppercase" data-tr="TELEFON" data-en="PHONE">TELEFON</div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="TELEFON" data-en="PHONE">PHONE</div>
                 <a href="tel:+902122829024" class="text-slate-200 hover:text-brand-cyan transition-colors">+90 (212) 282 90 24</a>
               </div>
             </div>
@@ -550,7 +576,7 @@
             <div class="flex items-start space-x-3">
               <i class="fa-solid fa-map-pin text-brand-cyan mt-1"></i>
               <div>
-                <div class="text-xs text-slate-500 uppercase" data-tr="ADRES" data-en="ADDRESS">ADRES</div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="ADRES" data-en="ADDRESS">ADDRESS</div>
                 <div class="text-slate-200">Levent Mah. Ortanca Sk. No:6, 34330 Besiktas / Istanbul / Turkey</div>
               </div>
             </div>
@@ -558,7 +584,7 @@
             <div class="flex items-start space-x-3">
               <i class="fa-solid fa-envelope text-purple-400 mt-1"></i>
               <div>
-                <div class="text-xs text-slate-500 uppercase" data-tr="E-POSTA" data-en="EMAIL">E-POSTA</div>
+                <div class="text-xs text-slate-500 uppercase" data-tr="E-POSTA" data-en="EMAIL">EMAIL</div>
                 <a href="mailto:info@abtistanbul.com" class="text-brand-cyan hover:underline">info@abtistanbul.com</a>
               </div>
             </div>
@@ -597,7 +623,7 @@
           <i class="fa-solid fa-clock text-brand-cyan text-xl"></i>
         </div>
         <div>
-          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest" data-tr="CANLI STÜDYO SAATİ / TIMECODE" data-en="LIVE STUDIO CLOCK / TIMECODE">CANLI STÜDYO SAATİ / TIMECODE</div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest" data-tr="CANLI STÜDYO SAATİ / TIMECODE" data-en="LIVE STUDIO CLOCK / TIMECODE">LIVE STUDIO CLOCK / TIMECODE</div>
           <div id="timecodeDisplay" class="text-2xl font-mono font-bold text-white tracking-wider">
             00:00:00:00
           </div>
@@ -665,8 +691,8 @@
     }
     setInterval(updateTimecode, 40);
 
-    // 2. Bilingual Toggle (TR / EN)
-    let currentLang = 'TR';
+    // 2. Bilingual Toggle (DEFAULT: EN)
+    let currentLang = 'EN';
     function toggleLanguage() {
       currentLang = currentLang === 'TR' ? 'EN' : 'TR';
       document.getElementById('langLabel').innerText = currentLang;
@@ -676,7 +702,14 @@
       });
     }
 
-    // 3. Theme Toggle
+    // Initialize English Language View on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-tr]').forEach(el => {
+        el.innerText = el.getAttribute('data-en');
+      });
+    });
+
+    // 3. Theme Toggle (DEFAULT: DARK MODE)
     function toggleTheme() {
       const htmlEl = document.documentElement;
       const icon = document.getElementById('themeIcon');
